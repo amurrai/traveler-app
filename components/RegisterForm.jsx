@@ -1,9 +1,12 @@
 "use client"
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const RegisterForm = () => {
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -17,14 +20,34 @@ const RegisterForm = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     console.log(formData);
+
+    const response = await fetch("/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        username: formData.username,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        password: formData.password
+      })
+    });
+
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      console.log("Error");
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="w-full"> 
+      <form onSubmit={onSubmit} className="w-full"> 
         Email: <input 
           className="w-full" 
           type="email" 
