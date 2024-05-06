@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
 
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -14,14 +17,25 @@ const LoginForm = () => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    
+    const loginData = await signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirect: false
+    });
+
+    if (loginData?.error) {
+      console.log(loginData.error)
+    } else {
+      router.push("/dashboard");
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="w-full"> 
+      <form onSubmit={onSubmit} className="w-full"> 
         Email: <input 
           className="w-full" 
           type="email" 
