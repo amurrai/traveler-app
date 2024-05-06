@@ -56,10 +56,10 @@ model Location {
   place_id          String           @db.VarChar(255)
   city_id           Int
   country_id        Int
-  description       String?
+  description       String
   category          String
   image             String?
-  rating_id         Int
+  rating_id         Int?
   days_of_operation Int?
   //relatiomships 
   city              City             @relation(fields: [city_id], references: [id])
