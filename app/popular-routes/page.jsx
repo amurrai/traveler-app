@@ -1,10 +1,10 @@
 import Route from "@/components/Route";
-import fetchRoutes from "@/lib/data";
+import { fetchPublicRoutes } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 
 const PopularRoutesPage = async () => {
-  const routes = await fetchRoutes();
+  const routes = await fetchPublicRoutes();
   return (
     <ul>
       {routes.map(route => {
