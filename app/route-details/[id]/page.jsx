@@ -1,7 +1,11 @@
+import RouteRatingForm from "@/components/RouteRatingForm";
+import { authOptions } from "@/lib/auth";
 import { fetchRouteDetails } from "@/lib/data";
+import { getServerSession } from "next-auth";
 import React from "react";
 
 const RouteDetailsPage = async ({params}) => {
+  const session = await getServerSession(authOptions);
 
   const routeDetails = await fetchRouteDetails(params.id);
 
@@ -28,24 +32,28 @@ const RouteDetailsPage = async ({params}) => {
   console.log(routeDetails);
 
   return (
-    <table className="text-left">
-      <thead>
-        <tr>
-          <th>Route Name</th>
-          <th>Description</th>
-          <th>Locations</th>
-          <th>Ratings</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{routeDetails.route_name}</td>
-          <td>{routeDetails.description}</td>
-          <td>{locationNames}</td>
-          <td>{ratings}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="space-y-4">
+      <table className="text-left">
+        <thead>
+          <tr>
+            <th>Route Name</th>
+            <th>Description</th>
+            <th>Locations</th>
+            <th>Ratings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{routeDetails.route_name}</td>
+            <td>{routeDetails.description}</td>
+            <td>{locationNames}</td>
+            <td>{ratings}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      {session?.user && <RouteRatingForm />}
+    </div>
   )
 }
 
