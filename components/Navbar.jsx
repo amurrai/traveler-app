@@ -10,7 +10,11 @@ const Navbar = async () => {
   return (
     <div className=" bg-zinc-100 py-2 border-b border-s-zinc-200 fixed w-full z-10">
       <div className="flex item-center justify-between">
-        <Link href="/">Home</Link>
+        <div>
+          <Link href="/">Home</Link> | 
+          <Link href="/popular-routes"> Popular Routes</Link> |
+          {session?.user && <Link href="/dashboard"> Dashboard</Link>}
+        </div>
         {session?.user ? (
           <LogoutButton />
         ) : (
