@@ -80,17 +80,8 @@ const RegisterForm = () => {
           onChange={handleChange} />
         <button className="w-full mt-6" type="submit">Register</button>
       </form>
-      <div className="mx-auto my-4 flex w-full items-center justify-evenly
-      before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 
-      after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
-        or
-      </div>
-      <p className="text-center text-sm text-gray-600 mt-2">
-        If you don't have an account, please <Link className="text-blue-500" href="/register">register</Link>
-      </p>
     </div>
   )
-
 };
 
 export default RegisterForm;

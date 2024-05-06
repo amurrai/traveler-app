@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
         <main className="h-screen flex flex-col justify-center items-center">
           {children}
         </main>
-
       </body>
     </html>
   );
