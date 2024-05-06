@@ -1,6 +1,9 @@
 // before seeding the db need to add "type": "module" to the package.json then remove it after
 
 import { PrismaClient } from '@prisma/client'
+import torontoPlaces from './torontoPlaces.js';
+import calgaryPlaces from './calgaryPlaces.js';
+import vancouverPlaces from './vancouverPlaces.js';
 
 const prisma = new PrismaClient()
 
@@ -13,11 +16,18 @@ async function main() {
     ]
   });
 
-  await prisma.city.create({
-    data:
+  await prisma.city.createMany({
+    data: [
     {
       name: "Calgary",
+    },
+    {
+      name: "Toronto"
+    },
+    {
+      name: "Vancouver"
     }
+  ]
   });
 
   await prisma.country.create({
@@ -28,26 +38,15 @@ async function main() {
   });
 
   await prisma.location.createMany({
-    data: [
-      {
-        name: "Calgary zoo",
-        place_id: "ChIJBS-3mq16cVMR93V1x_a4J2I",
-        city_id: 1,
-        country_id: 1,
-        description: "The Wilder Institute/Calgary Zoo is located in Bridgeland, Calgary, Alberta, Canada, just east of the city's downtown and adjacent to the Inglewood and East Village neighborhoods.",
-        category: "Parks",
-        rating_id: 5
-      },
-      {
-        name: "Calgary tower",
-        place_id: "ChIJQaMBBgJwcVMRtmO9AytlDLM",
-        description: "The Calgary Tower is a 190.8-metre free standing observation tower in the downtown core of Calgary, Alberta, Canada.",
-        city_id: 1,
-        country_id: 1,
-        category: "Attractions",
-        rating_id: 4.5
-      },
-    ]
+    data: torontoPlaces
+  });
+
+  await prisma.location.createMany({
+    data: vancouverPlaces
+  });
+
+  await prisma.location.createMany({
+    data: calgaryPlaces
   });
 
   await prisma.userLocation.createMany({
