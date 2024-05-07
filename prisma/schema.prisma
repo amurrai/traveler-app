@@ -14,98 +14,101 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  username String  @db.VarChar(100)
-  password String  @db.VarChar(100)
-  first_name String  @db.VarChar(100)
-  last_name String  @db.VarChar(100)
-  country_of_origin String @db.VarChar(100)
+  id              Int              @id @default(autoincrement())
+  email           String           @unique
+  username        String           @db.VarChar(100)
+  password        String           @db.VarChar(100)
+  first_name      String           @db.VarChar(100)
+  last_name       String           @db.VarChar(100)
   //relationship
-  routes         Route[]
-  userLocations UserLocation[]
+  routes          Route[]
+  userLocations   UserLocation[]
   locationRatings LocationRating[]
-  routeRatings   RouteRating[] 
+  routeRatings    RouteRating[]
 }
 
-
 model Route {
-  id              Int         @id @default(autoincrement())
-  user_id         Int
-  // location_id     Int
-  route_name      String     @db.VarChar(100)
-  description     String
-  is_public       Boolean     @default(false)
-  is_active       Boolean     @default(false)
-  created_on      DateTime    @default(now())
-  updated_on      DateTime    @default(now())
+  id            Int             @id @default(autoincrement())
+  user_id       Int
+  route_name    String          @db.VarChar(100)
+  description   String
+  is_public     Boolean         @default(false)
+  is_active     Boolean         @default(false)
+  created_on    DateTime        @default(now())
+  updated_on    DateTime        @default(now())
   //relationships 
-  user            User     @relation(fields: [user_id], references: [id])
-  // location        Location @relation(fields: [location_id], references: [id])
-  locations   Location[] //many-to-many relatiomship
-  locationRoute   LocationRoute[] 
-  ratings         RouteRating[]
+  user          User            @relation(fields: [user_id], references: [id])
+  locationRoute LocationRoute[]
+  ratings       RouteRating[]
 }
 
 model UserLocation {
-  id        Int     @id @default(autoincrement())
-  user_id Int
+  id          Int      @id @default(autoincrement())
+  user_id     Int
   location_id Int
-  place_name String  @db.VarChar(255)
-  description String?
-  latitude Float 
-  longitude   Float    
-  //relatiomships
-  user        User      @relation(fields: [user_id], references: [id])
-  location    Location  @relation(fields: [location_id], references: [id])
+  user        User     @relation(fields: [user_id], references: [id])
+  location    Location @relation(fields: [location_id], references: [id])
 }
 
-
 model Location {
-  id        Int     @id @default(autoincrement())
-  name String  @db.VarChar(255)
-  description String?
-  latitude Float  
-  longitude Float
-  place_id String  @db.VarChar(255)
+  id                Int              @id @default(autoincrement())
+  name              String           @db.VarChar(255)
+  place_id          String           @db.VarChar(255)
+  city_id           Int
+  country_id        Int
+  description       String
+  category          String
+  image             String?
+  rating_id         Int?
+  days_of_operation Int?
   //relatiomships 
-  locationRoute      LocationRoute[]
-  userLocations      UserLocation[]
-  locationRatings    LocationRating[]
-  routes             Route[] //many-to-many relatiomship
+  city              City             @relation(fields: [city_id], references: [id])
+  country           Country          @relation(fields: [country_id], references: [id])
+  locationRoutes    LocationRoute[]
+  userLocations     UserLocation[]
+  locationRatings   LocationRating[]
+}
+
+model City {
+  id          Int        @id @default(autoincrement())
+  name   String
+  locations   Location[]
+}
+
+model Country {
+  id          Int        @id @default(autoincrement())
+  name        String
+  locations   Location[]
 }
 
 model LocationRoute {
-  id           Int      @id @default(autoincrement())
-  location_id   Int
-  route_id      Int
-  location     Location @relation(fields: [location_id], references: [id])
-  route        Route    @relation(fields: [route_id], references: [id])
+  id          Int      @id @default(autoincrement())
+  location_id Int
+  route_id    Int
+  location    Location @relation(fields: [location_id], references: [id])
+  route       Route    @relation(fields: [route_id], references: [id])
 }
 
 model LocationRating {
-  id          Int       @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   user_id     Int
   location_id Int
   // rating      Int  @check(rating >= 1 && rating <= 5)
-  rating      Int  @db.Integer
+  rating      Int      @db.Integer
   comment     String?
   //relationships
-  user        User      @relation(fields: [user_id], references: [id])
-  location    Location  @relation(fields: [location_id], references: [id])
-  
+  user        User     @relation(fields: [user_id], references: [id])
+  location    Location @relation(fields: [location_id], references: [id])
 }
-
 
 model RouteRating {
-  id              Int       @id @default(autoincrement())
-  user_id         Int
-  route_id        Int
+  id       Int     @id @default(autoincrement())
+  user_id  Int
+  route_id Int
   // rating    Int     @check(rating >= 1 && rating <= 5)
-  rating          Int  @db.Integer
-  comment         String?
+  rating   Int     @db.Integer
+  comment  String?
   //relationships 
-  user      User    @relation(fields: [user_id], references: [id])
-  route           Route     @relation(fields: [route_id], references: [id])
+  user     User    @relation(fields: [user_id], references: [id])
+  route    Route   @relation(fields: [route_id], references: [id])
 }
-
