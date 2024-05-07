@@ -11,15 +11,16 @@ export async function POST(req) {
     
 
     // check if rating already exists
-    // const existingUserRating = await prisma.routeRating.findUnique({
-    //   where: { 
-    //     user_id: user_id
-    //   }
-    // });
+    const existingUserRating = await prisma.routeRating.findFirst({
+      where: { 
+        user_id: user_id,
+        route_id: route_id
+      }
+    });
 
-    // if (existingUserRating) {
-    //   return NextResponse.json({ user: null, message: "Rating already exists" });
-    // }
+    if (existingUserRating) {
+      return NextResponse.json({ user: null, message: "Rating already exists" });
+    }
 
     // create new rating
     const newRouteRating = await prisma.routeRating.create({
