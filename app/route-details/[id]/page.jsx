@@ -6,6 +6,7 @@ import React from "react";
 
 const RouteDetailsPage = async ({params}) => {
   const session = await getServerSession(authOptions);
+  const userData = session?.user;
 
   const routeDetails = await fetchRouteDetails(params.id);
 
@@ -52,7 +53,7 @@ const RouteDetailsPage = async ({params}) => {
         </tbody>
       </table>
 
-      {session?.user && <RouteRatingForm />}
+      {session?.user && <RouteRatingForm route_id={routeDetails.id}/>}
     </div>
   )
 }

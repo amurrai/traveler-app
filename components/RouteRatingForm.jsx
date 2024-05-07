@@ -1,8 +1,15 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const RouteRatingForm = async () => {
+const RouteRatingForm = ({ route_id }) => {
+  
+  const router = useRouter();
+
+  // session for client side to get user id 
+  const { data } = useSession();
 
   const [formData, setFormData] = useState({
       rating: 1,
@@ -24,11 +31,17 @@ const RouteRatingForm = async () => {
       },
       body: JSON.stringify({
         rating: formData.rating,
-        comment: formData.comment
+        comment: formData.comment,
+        user_id: data.user.id,
+        route_id: route_id
       })
     });
 
-
+    if (response.ok) {
+      router.refresh();
+    } else {
+      console.log("Error");
+    }
   };
 
   return (

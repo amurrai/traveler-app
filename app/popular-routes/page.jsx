@@ -9,9 +9,11 @@ const PopularRoutesPage = async () => {
     <ul>
       {routes.map(route => {
         return (
-          <Link href={`/route-details/${route.id}`}>
-            <Route key={route.id} name={route.route_name} description={route.description} />
-          </Link>
+          <li key={route.id}>
+            <Link href={`/route-details/${route.id}`}>
+              <Route name={route.route_name} description={route.description} />
+            </Link>
+          </li>
         );
       })}
     </ul>

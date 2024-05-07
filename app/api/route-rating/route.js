@@ -3,32 +3,37 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
+  
     const body = await req.json();
 
-    const { email, username, first_name, last_name, password } = body;
+    const { user_id, route_id, comment, rating } = body;
 
-    // check is email is already in database 
-    const existingUserByEmail = await prisma.user.findUnique({
-      where: { email: email }
-    });
+    
 
-    if (existingUserByEmail) {
-      return NextResponse.json({ user: null, message: "User already exists" });
-    }
+    // check if rating already exists
+    // const existingUserRating = await prisma.routeRating.findUnique({
+    //   where: { 
+    //     user_id: user_id
+    //   }
+    // });
 
-    // create new user with hashed password 
-    const newUser = await prisma.user.create({
+    // if (existingUserRating) {
+    //   return NextResponse.json({ user: null, message: "Rating already exists" });
+    // }
+
+    // create new rating
+    const newRouteRating = await prisma.routeRating.create({
       data: {
-        email,
-        username,
-        first_name,
-        last_name,
-        password: hashedPassword
+        user_id: parseInt(user_id),
+        route_id: parseInt(route_id),
+        comment,
+        rating: parseInt(rating)
       }
     });
 
-    return NextResponse.json({ user: newUser, message: "User created" });
+    return NextResponse.json({ routeRating: newRouteRating });
   } catch(error) {
+    console.error("Error:", error);
     return NextResponse.json({ message: "Something went wrong" });
   }
 }
