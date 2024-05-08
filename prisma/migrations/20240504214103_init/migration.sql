@@ -6,7 +6,6 @@ CREATE TABLE "User" (
     "password" VARCHAR(100) NOT NULL,
     "first_name" VARCHAR(100) NOT NULL,
     "last_name" VARCHAR(100) NOT NULL,
-    "country_of_origin" VARCHAR(100) NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -30,10 +29,6 @@ CREATE TABLE "UserLocation" (
     "id" SERIAL NOT NULL,
     "user_id" INTEGER NOT NULL,
     "location_id" INTEGER NOT NULL,
-    "place_name" VARCHAR(255) NOT NULL,
-    "description" TEXT,
-    "latitude" DOUBLE PRECISION NOT NULL,
-    "longitude" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "UserLocation_pkey" PRIMARY KEY ("id")
 );
@@ -42,12 +37,32 @@ CREATE TABLE "UserLocation" (
 CREATE TABLE "Location" (
     "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
-    "description" TEXT,
-    "latitude" DOUBLE PRECISION NOT NULL,
-    "longitude" DOUBLE PRECISION NOT NULL,
     "place_id" VARCHAR(255) NOT NULL,
+    "city_id" INTEGER NOT NULL,
+    "country_id" INTEGER NOT NULL,
+    "description" TEXT,
+    "category" TEXT NOT NULL,
+    "image" TEXT,
+    "rating_id" INTEGER NOT NULL,
+    "days_of_operation" INTEGER,
 
     CONSTRAINT "Location_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "City" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "City_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Country" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "Country_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -81,20 +96,8 @@ CREATE TABLE "RouteRating" (
     CONSTRAINT "RouteRating_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_LocationToRoute" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "_LocationToRoute_AB_unique" ON "_LocationToRoute"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_LocationToRoute_B_index" ON "_LocationToRoute"("B");
 
 -- AddForeignKey
 ALTER TABLE "Route" ADD CONSTRAINT "Route_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -104,6 +107,12 @@ ALTER TABLE "UserLocation" ADD CONSTRAINT "UserLocation_user_id_fkey" FOREIGN KE
 
 -- AddForeignKey
 ALTER TABLE "UserLocation" ADD CONSTRAINT "UserLocation_location_id_fkey" FOREIGN KEY ("location_id") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Location" ADD CONSTRAINT "Location_city_id_fkey" FOREIGN KEY ("city_id") REFERENCES "City"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Location" ADD CONSTRAINT "Location_country_id_fkey" FOREIGN KEY ("country_id") REFERENCES "Country"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "LocationRoute" ADD CONSTRAINT "LocationRoute_location_id_fkey" FOREIGN KEY ("location_id") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -122,9 +131,3 @@ ALTER TABLE "RouteRating" ADD CONSTRAINT "RouteRating_user_id_fkey" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "RouteRating" ADD CONSTRAINT "RouteRating_route_id_fkey" FOREIGN KEY ("route_id") REFERENCES "Route"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_LocationToRoute" ADD CONSTRAINT "_LocationToRoute_A_fkey" FOREIGN KEY ("A") REFERENCES "Location"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_LocationToRoute" ADD CONSTRAINT "_LocationToRoute_B_fkey" FOREIGN KEY ("B") REFERENCES "Route"("id") ON DELETE CASCADE ON UPDATE CASCADE;
