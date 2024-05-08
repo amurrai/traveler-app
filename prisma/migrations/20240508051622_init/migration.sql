@@ -40,10 +40,10 @@ CREATE TABLE "Location" (
     "place_id" VARCHAR(255) NOT NULL,
     "city_id" INTEGER NOT NULL,
     "country_id" INTEGER NOT NULL,
-    "description" TEXT,
+    "description" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "image" TEXT,
-    "rating_id" INTEGER NOT NULL,
+    "rating_id" INTEGER,
     "days_of_operation" INTEGER,
 
     CONSTRAINT "Location_pkey" PRIMARY KEY ("id")

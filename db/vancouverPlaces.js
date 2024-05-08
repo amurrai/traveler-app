@@ -1,170 +1,193 @@
 const vancouverPlaces = [
   {
-    placeId: 'ChIJp2zKeo1xhlQRWOMOmCcWJV8',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJp2zKeo1xhlQRWOMOmCcWJV8',
+    city_id: 3,
+    country_id: 1,
     name: 'Vancouver Aquarium',
     category: 'Aquarium',
     description: 'Popular kid-friendly attraction showcases local & exotic aquatic life with a focus on conservation.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/19/Chief_of_the_Undersea_World_%2829942144566%29.jpg"
   },
   {
-    placeId: 'ChIJo-QmrYxxhlQRFuIJtJ1jSjY',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJo-QmrYxxhlQRFuIJtJ1jSjY',
+    city_id: 3,
+    country_id: 1,
     name: 'Stanley Park',
     category: 'Park',
     description: "Vancouver's largest urban park has beaches, trails & family attractions, plus a picturesque seawall.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Vancouver_%28BC%2C_Canada%29%2C_Stanley_Park%2C_Totem_poles_--_2022_--_2039.jpg"
   },
   {
-    placeId: 'ChIJG3q8d85zhlQRIH1pyAsVpEc',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJG3q8d85zhlQRIH1pyAsVpEc',
+    city_id: 3,
+    country_id: 1,
     name: 'Granville Island Public Market',
     category: 'Market',
-    description: 'Popular indoor market with restaurants, bars & cafes, plus gourmet food stalls & artisan boutiques.'
+    description: 'Popular indoor market with restaurants, bars & cafes, plus gourmet food stalls & artisan boutiques.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Granville_Island_Public_Market_2015.jpg"
   },
   {
-    placeId: 'ChIJnZHwi2NxhlQRN3CYHzc3giE',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJnZHwi2NxhlQRN3CYHzc3giE',
+    city_id: 3,
+    country_id: 1,
     name: 'Science World',
     category: 'Museum',
     description: 'Interactive science displays & films for kids from toddlers to early teens, inside a geodesic dome.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/50/Science_World%2C_Vancouver%2C_Canada_%28JWPhotowerks%29_-_Flickr.jpg"
   },
   {
-    placeId: 'ChIJwXz9f39xhlQRT3qxXAPDlbU',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJwXz9f39xhlQRT3qxXAPDlbU',
+    city_id: 3,
+    country_id: 1,
     name: 'Vancouver Art Gallery',
     category: 'Art Gallery',
     description: 'Gallery known for its touring exhibits, work by local artists (like Emily Carr) & photo collection.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Vancouver_Art_Gallery_%2839595096015%29.jpg"
   },
   {
-    placeId: 'ChIJrf8w27NyhlQR44St4PQccfY',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJrf8w27NyhlQR44St4PQccfY',
+    city_id: 3,
+    country_id: 1,
     name: 'Museum of Anthropology at UBC',
     category: 'Museum',
     description: 'Large Arthur Erickson–designed museum at UBC devoted to cultural artifacts from around the world.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/15/The_Raven_and_the_First_Men%2C_University_of_British_Columbia_Museum_of_Anthropology%2C_Bill_Reid%2C_Creator_-_panoramio_%281%29.jpg"
   },
   {
-    placeId: 'ChIJQ9pJmH5xhlQRe_nvreYL37k',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJQ9pJmH5xhlQRe_nvreYL37k',
+    city_id: 3,
+    country_id: 1,
     name: 'Vancouver Public Library, Central Library',
     category: 'Library',
     description: "The city's grand central library, with a colonnaded surround reminiscent of a Roman amphitheater.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/07/Vancouver_Public_Central_Library_%2823725334918%29.jpg"
   },
   {
-    placeId: 'ChIJj1udwilyhlQR1FRRZudhLlE',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJj1udwilyhlQR1FRRZudhLlE',
+    city_id: 3,
+    country_id: 1,
     name: 'Roedde House Museum',
     category: 'Museum',
     description: 'This restored, late-Victorian home with tours depicts  life at the turn of the 19th century.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Roedde_House_01.jpg"
   },
   {
-    placeId: 'ChIJ1eC-_HxxhlQRuxiCkf1NQPk',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJ1eC-_HxxhlQRuxiCkf1NQPk',
+    city_id: 3,
+    country_id: 1,
     name: 'BC Place' ,
     category: 'Stadium',
     description: 'Stadium with a retractable roof & over 50,000 seats for events plus Major League Soccer & football.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/ff/BC_Place_2015_Women%27s_FIFA_World_Cup.jpg"
   },
   {
-    placeId: 'ChIJSd7cANJvhlQRXg8TheyzUPM',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJSd7cANJvhlQRXg8TheyzUPM',
+    city_id: 3,
+    country_id: 1,
     name: 'Capilano Suspension Bridge Park',
     category: 'Historical Landmark',
     description: 'Built in 1889, this 137m-long treetop bridge offers scenic views of the forest below.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Capilano_Suspension_Bridge_ending.JPG"
   },
   {
-    placeId: 'ChIJIcZrTvVzhlQRiKTnD03vt7Q',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJIcZrTvVzhlQRiKTnD03vt7Q',
+    city_id: 3,
+    country_id: 1,
     name: 'Queen Elizabeth Park',
     category: 'Park',
     description: 'Urban landmark on a hill featuring manicured gardens, a conservatory, sculptures & sports courts.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/71/Trevesia_palmata_-_Bloedel_Floral_Conservatory%2C_Queen_Elizabeth_Park_-_Vancouver%2C_Canada_-_DSC07492.JPG"
   },
   {
-    placeId: 'ChIJwW3HeIZzhlQRVxJgWI8VjAg',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJwW3HeIZzhlQRVxJgWI8VjAg',
+    city_id: 3,
+    country_id: 1,
     name: 'VanDusen Botanical Garden',
     category: 'Park',
     description: 'Space with ever-changing greenery, flowers & art installations plus fine dining & a casual cafe.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/45/General_view_-_VanDusen_Botanical_Garden_-_Vancouver%2C_BC_-_DSC07438.jpg"
   },
   {
-    placeId: 'ChIJK7VbnXxxhlQRCbKQyeRwBJ4',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJK7VbnXxxhlQRCbKQyeRwBJ4',
+    city_id: 3,
+    country_id: 1,
     name: 'Rogers Arena',
     category: 'Event Venue',
     description: 'Spacious venue that hosts the Vancouver Canucks & concerts by big-name touring acts.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/62/Rogers_Arena_-_panoramio.jpg"
   },
   {
-    placeId: 'ChIJ86zkaC9yhlQR4GhBA8iTiy4',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJ86zkaC9yhlQR4GhBA8iTiy4',
+    city_id: 3,
+    country_id: 1,
     name: 'English Bay Beach',
     category: 'Beach',
     description: 'Bustling beach with volleyball courts, plus a concession stand & the Cactus Club Cafe for food.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/1/13/English_Bay_Vancouver_04.jpg"
   },
   {
-    placeId: 'ChIJo4RRq4NxhlQRIAejSwZjXS0',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJo4RRq4NxhlQRIAejSwZjXS0',
+    city_id: 3,
+    country_id: 1,
     name: 'Marine Building',
     category: 'Tourist Attraction',
     description: 'Skyscraper, opened in 1930, known for its art deco–inspired architecture & its ornate lobby.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/02/Marine_Building%2C_Vancouver_%282013%29_-_09.JPG"
   },
   {
-    placeId: 'ChIJ0UCTbi1yhlQRQCKD7zPvHBk',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJ0UCTbi1yhlQRQCKD7zPvHBk',
+    city_id: 3,
+    country_id: 1,
     name: 'Sunset Beach',
     category: 'Beach',
-    description: 'Sunset Beach in Vancouver is a picturesque waterfront destination offering stunning views of English Bay and the surrounding mountains.'
+    description: 'Sunset Beach in Vancouver is a picturesque waterfront destination offering stunning views of English Bay and the surrounding mountains.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Rusty_Ribs_Sunset_Beach_Vancouver_BC_%2815723217562%29.jpg"
   },
   {
-    placeId: 'ChIJwd1aPIBxhlQRX8pxjPkAb5s',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJwd1aPIBxhlQRX8pxjPkAb5s',
+    city_id: 3,
+    country_id: 1,
     name: 'Robson Square',
     category: 'Tourist Attraction',
     description: 'Ice-skating, street-dancing & landscape architecture in a pedestrian hub amid office towers.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/da/Vancouver_Robson_Square_02.jpg"
   },
   {
-    placeId: 'ChIJIeDiJJ1xhlQRCWHIheB_Bbc',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJIeDiJJ1xhlQRCWHIheB_Bbc',
+    city_id: 3,
+    country_id: 1,
     name: 'Canada Place',
     category: 'Convention Center',
     description: 'Built to look like a ship, this iconic complex houses a convention centre, hotel & ferry terminal.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Vancouver_%28BC%2C_Canada%29%2C_Canada_Place_--_2022_--_1906.jpg"
   },
   {
-    placeId: 'ChIJK33rpNZzhlQRwA_oOKDuFDI',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJK33rpNZzhlQRwA_oOKDuFDI',
+    city_id: 3,
+    country_id: 1,
     name: 'False Creek',
     category: 'Tourist Attraction',
     description: 'Home to 10 marinas, this inlet offers many boating activities, including pleasure boats & paddling.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/22/False_Creek_Vancouver_British_Columbia_Canada_02.jpg"
   },
   {
-    placeId: 'ChIJAx7UL8xyhlQR86Iqc-fUncc',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJAx7UL8xyhlQR86Iqc-fUncc',
+    city_id: 3,
+    country_id: 1,
     name: 'The University of British Columbia',
     category: 'University',
-    description: 'Sprawling public research university known for its anthropology museum & arts & sciences programs.'
+    description: 'Sprawling public research university known for its anthropology museum & arts & sciences programs.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/73/The_University_of_British_Columbia_%2848857487382%29.jpg"
   },
   {
-    placeId: 'ChIJP2oYRX9xhlQRUGL0tr-uzSY',
-    city: 'Vancouver',
-    country: 'Canada',
+    place_id: 'ChIJP2oYRX9xhlQRUGL0tr-uzSY',
+    city_id: 3,
+    country_id: 1,
     name: 'CF Pacific Centre',
     category: 'Shopping Mall',
-    description: 'Upscale mall since 1971 with premium retailers, designer brands, a food court & underground parking.'
+    description: 'Upscale mall since 1971 with premium retailers, designer brands, a food court & underground parking.',
+    image: "https://upload.wikimedia.org/wikipedia/commons/3/39/Pacific_Centre.jpg"
   }
-]
+];
+
+export default vancouverPlaces;
