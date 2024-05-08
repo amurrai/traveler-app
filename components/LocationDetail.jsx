@@ -10,8 +10,8 @@ const LocationDetail = () => {
           color: 'white',
           height: '500px',
           width: '100%',
-          margin: '20px',
-          marginTop: '80px',
+          margin: 2.5,
+          marginTop: 10,
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'
@@ -25,7 +25,7 @@ const LocationDetail = () => {
           color: 'white',
           height: '300px',
           width: '100%',
-          margin: '20px',
+          margin: 2.5,
           marginTop: '0',
           display: 'flex',
           justifyContent: 'center',
@@ -34,8 +34,8 @@ const LocationDetail = () => {
           Picture
         </Box>
       </Box>
-      <Box display='flex' flexDirection='row' width='100%' height='150px'>
-        <Box display='flex' flexDirection='column' width='30%' justifyContent='space-between' backgroundColor='#666666' marginLeft='20px'>
+      <Box display='flex' flexDirection='row' width='100%' height='150px' marginBottom={2.5}>
+        <Box display='flex' flexDirection='column' width='30%' justifyContent='space-between' backgroundColor='#666666' marginLeft={2.5}>
           <Box backgroundColor='#665566'>
             Name
           </Box>
@@ -49,14 +49,9 @@ const LocationDetail = () => {
             Add to favorite
           </Box>          
         </Box>
-        <Box display ='flex' width='70%' justifyContent='center' alignItems='center' backgroundColor='#888888' marginRight='20px'>
-          Popular Times
-        </Box>
-      </Box>
-      <Box display='flex' width='100%' height='150px'>
-        <Box display='flex' flexDirection='row' width='100%' justifyContent='center' alignItems='center' backgroundColor='#AAAAAA' margin="20px">
+        <Box display ='flex' width='70%' justifyContent='center' alignItems='center' backgroundColor='#888888' marginRight={2.5}>
           Description
-        </Box>        
+        </Box>
       </Box>
     </>
   )
