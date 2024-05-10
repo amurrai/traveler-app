@@ -1,7 +1,9 @@
+'use client'
 import { Box } from "@mui/material";
 
 
-const LocationDetail = () => {
+const LocationDetail = ( { location } ) => {
+
   return (
     <>
       <Box display='flex' justifyContent='center' width='100%'>
@@ -31,26 +33,26 @@ const LocationDetail = () => {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-          Picture
+          Picture: {location.image && <img src={location.image} alt={location.name} />}
         </Box>
       </Box>
       <Box display='flex' flexDirection='row' width='100%' height='150px' marginBottom={2.5}>
         <Box display='flex' flexDirection='column' width='30%' justifyContent='space-between' backgroundColor='#666666' marginLeft={2.5}>
           <Box backgroundColor='#665566'>
-            Name
+            Name: {location.name}
           </Box>
           <Box backgroundColor='#664466'>
             Rating
           </Box>
           <Box backgroundColor='#663366'>
-            Category
+            Category: {location.category}
           </Box>
           <Box backgroundColor='#662266'>
             Add to favorite
           </Box>          
         </Box>
         <Box display ='flex' width='70%' justifyContent='center' alignItems='center' backgroundColor='#888888' marginRight={2.5}>
-          Description
+          Description: {location.description}
         </Box>
       </Box>
     </>
