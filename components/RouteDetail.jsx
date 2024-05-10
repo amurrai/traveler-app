@@ -1,7 +1,8 @@
+
 import { Box, Grid, Stack, Button } from "@mui/material";
 
 
-const RouteDetail = () => {
+const LocationDetail = () => {
   return (
     <>
       <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop='70px'>
@@ -80,4 +81,4 @@ const RouteDetail = () => {
   )
 };
 
-export default RouteDetail;
+export default LocationDetail;

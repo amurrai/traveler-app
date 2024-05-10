@@ -190,4 +190,5 @@ const vancouverPlaces = [
   }
 ];
 
+
 export default vancouverPlaces;
