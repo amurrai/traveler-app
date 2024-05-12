@@ -1,6 +1,6 @@
 import { Box, Grid, Typography } from "@mui/material";
 
-const RouteListHomeItem = () => {
+const RouteListInfoItem = () => {
   return (
     <Grid display='flex' item xs={12} sm={6} md={4} justifyContent={'center'}>
       <Box display='flex' flexDirection='row' height='200px' width='400px'>
@@ -24,4 +24,4 @@ const RouteListHomeItem = () => {
   )
 };
 
-export default RouteListHomeItem;
+export default RouteListInfoItem;
