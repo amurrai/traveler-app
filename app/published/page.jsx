@@ -35,7 +35,11 @@ const PublishedPage = async () => {
   }
 
   return (
-    <h1>Please log in</h1>
+    <Box display='flex' width='100%' marginTop={50} justifyContent={'center'}>
+      <Typography variant='h5'>
+        Please log in
+      </Typography>
+    </Box>    
   );
 };
 
