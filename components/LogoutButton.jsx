@@ -9,7 +9,7 @@ const LogoutButton = () => {
     <Button onClick={() => 
       signOut({
         redirect: true,
-        callbackUrl: `${window.location.origin}/login`
+        callbackUrl: '/'
       })} color="inherit">Logout</Button>
   )
 };
