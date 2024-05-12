@@ -1,7 +1,7 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { Box, Grid, Typography } from "@mui/material";
-import RouteListHomeItem from "../components/RouteListHomeItem";
+import RouteListInfoItem from "../components/RouteListInfoItem";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -14,12 +14,12 @@ export default async function Home() {
       </Box>
       <Box>
         <Grid container columnSpacing={1} rowSpacing={5}>
-          <RouteListHomeItem />
-          <RouteListHomeItem />
-          <RouteListHomeItem />
-          <RouteListHomeItem />
-          <RouteListHomeItem />
-          <RouteListHomeItem />
+          <RouteListInfoItem />
+          <RouteListInfoItem />
+          <RouteListInfoItem />
+          <RouteListInfoItem />
+          <RouteListInfoItem />
+          <RouteListInfoItem />
         </Grid>
       </Box>      
     </Box>  
