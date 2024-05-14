@@ -7,7 +7,7 @@ import RouteListInfoItem from "../../components/RouteListInfoItem";
 
 const PopularRoutesPage = async () => {
   const routes = await fetchPopularRoutes();
-  
+
   // pass in route for each RoutelistInfoItem component
   const routeListInfoItem = routes.map((route) => {
     return (

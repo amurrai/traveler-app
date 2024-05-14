@@ -15,17 +15,17 @@ const RouteListInfoItem = ({ route }) => {
           margin={1} 
           backgroundColor='#666666'
           overflow='hidden' 
-          src={route.location[0].location.image}
+          src={route.location[0].location.image || ''}
           />
         <Box height='180px' width='180px' margin={1}>
           <Box height='20%'>
             <Typography variant='h6'>
-              {route.route_name}
+              {route.route_name || ''}
             </Typography>            
           </Box>
           <Box height='80%'>
             <Typography variant='body'>
-              {route.description}
+              {route.description || ''}
             </Typography>            
           </Box>
         </Box>
