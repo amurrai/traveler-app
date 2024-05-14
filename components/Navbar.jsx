@@ -10,7 +10,7 @@ const Navbar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="static">
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="logo" href="/">
           <CatchingPokemonIcon />
