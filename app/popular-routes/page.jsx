@@ -1,12 +1,20 @@
 import Route from "@/components/Route";
-import { fetchPublicRoutes } from "@/lib/data";
+import { fetchPopularRoutes, fetchPublicRoutes } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 import { Box, Grid, Button, TextField, Typography } from "@mui/material";
 import RouteListInfoItem from "../../components/RouteListInfoItem";
 
 const PopularRoutesPage = async () => {
-  const routes = await fetchPublicRoutes();
+  const routes = await fetchPopularRoutes();
+  
+  // pass in route for each RoutelistInfoItem component
+  const routeListInfoItem = routes.map((route) => {
+    return (
+      <RouteListInfoItem route={route}/>
+    );
+  });
+
   return (
     <>
     <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
@@ -27,12 +35,7 @@ const PopularRoutesPage = async () => {
           </Typography>
         </Box>
         <Grid container columnSpacing={1} rowSpacing={5}>
-          <RouteListInfoItem />
-          <RouteListInfoItem />
-          <RouteListInfoItem />
-          <RouteListInfoItem />
-          <RouteListInfoItem />
-          <RouteListInfoItem />
+          {routeListInfoItem}
         </Grid>        
       </Box>
     </Box>
@@ -41,18 +44,3 @@ const PopularRoutesPage = async () => {
 }
 
 export default PopularRoutesPage;
-
-
-
-
-{/* <ul>
-{routes.map(route => {
-  return (
-    <li key={route.id}>
-      <Link href={`/route-details/${route.id}`}>
-        <Route name={route.route_name} description={route.description} />
-      </Link>
-    </li>
-  );
-})}
-</ul> */}
