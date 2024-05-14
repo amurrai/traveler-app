@@ -17,7 +17,7 @@ const AccountPage = async () => {
   if (session?.user) {
     return (
       <>
-        <Box display='flex' flexDirection='row' width='100%' height='100%' justifyContent='space-between' border={1}>
+        <Box display='flex' flexDirection='row' width='100%' height='100%' justifyContent='space-between' marginTop={10}>
           <Box display='flex' minWidth='300px' maxWidth='300px' flexDirection='column'>
             <Stack position='static' direction="column" spacing={2} component="div" margin={2}>
               <Button variant='contained'>Account Overview</Button>

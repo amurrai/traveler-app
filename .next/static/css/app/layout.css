@@ -559,8 +559,8 @@ video {
 .table {
   display: table;
 }
-.h-screen {
-  height: 100vh;
+.min-h-screen {
+  min-height: 100vh;
 }
 .w-full {
   width: 100%;
@@ -578,9 +578,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-.border {
-  border-width: 1px;
 }
 .bg-slate-200 {
   --tw-bg-opacity: 1;
