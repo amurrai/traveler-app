@@ -42,7 +42,7 @@ model Route {
   user            User            @relation(fields: [user_id], references: [id])
   origin          Location        @relation("origin", fields: [origin_id], references: [id])
   destination     Location        @relation("destination", fields: [destination_id], references: [id])
-  locationRoute   LocationRoute[]
+  location        LocationRoute[]
   ratings         RouteRating[]
 }
 
@@ -72,7 +72,7 @@ model Location {
   country           Country          @relation(fields: [country_id], references: [id])
   origin            Route[]          @relation("origin")
   destination       Route[]          @relation("destination")
-  locationRoutes    LocationRoute[]
+  route             LocationRoute[]
   userLocations     UserLocation[]
   locationRatings   LocationRating[]
 }

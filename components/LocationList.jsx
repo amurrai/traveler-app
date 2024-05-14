@@ -23,7 +23,7 @@ import CreateRouteForm from "./CreateRouteForm";
 
 
 const LocationList = ({locations}) => {
-  const center = { lat: 43.651070, lng: -79.347015 };
+  const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -36,6 +36,8 @@ const LocationList = ({locations}) => {
 
   // State to monitor selected locations
   const [selectedPlaces, setSelectedPlaces] = useState([]);
+  const [locationData, setLocationData] = useState({});
+  
   const handleCheckBoxChange = (check) => {
     // Reset DirectionsResponse if selection changes
     setDirectionsResponse(null);
@@ -73,9 +75,15 @@ const LocationList = ({locations}) => {
       travelMode: window.google.maps.TravelMode.WALKING,
       optimizeWaypoints: true
     });
+
+    setLocationData({
+      origin_id: formJson.origin,
+      destination_id: formJson.destination,
+      locations: selectedPlaces
+    });
     
     setDirectionsResponse(results);
-  };
+    };
 
 
   return (
@@ -149,7 +157,7 @@ const LocationList = ({locations}) => {
           >
             <DirectionsRenderer directions={directionsResponse} />
           </GoogleMap>
-          <CreateRouteForm />          
+          <CreateRouteForm locationData={locationData}/>          
         </Box>
       )}
     </Box>

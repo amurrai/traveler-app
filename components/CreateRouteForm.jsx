@@ -11,7 +11,12 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
-const CreateRouteForm = () => {
+const CreateRouteForm = ( {locationData} ) => {
+console.log(locationData);
+
+  const { origin_id, destination_id, locations } = locationData;
+
+  console.log(origin_id, destination_id, locations);
   
   const router = useRouter();
 
@@ -22,7 +27,6 @@ const CreateRouteForm = () => {
     event.preventDefault();
     const form = new FormData(event.target);
     const formJson = Object.fromEntries(form.entries());
-    console.log(formJson.name);
 
     const response = await fetch('/api/route', {
       method: 'POST',
@@ -33,7 +37,10 @@ const CreateRouteForm = () => {
         name: formJson.name,
         description: formJson.description,
         user_id: data.user.id,
-        is_public: Boolean(formJson.is_public)
+        is_public: Boolean(formJson.is_public),
+        origin_id,
+        destination_id,
+        locations
       })
     });
 
