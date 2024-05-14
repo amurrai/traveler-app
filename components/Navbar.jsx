@@ -26,7 +26,7 @@ const Navbar = async () => {
         <Stack direction="row" spacing={2}>
           {session?.user ? (
             <>
-              <Button color="inherit">Account</Button>
+              <Button color="inherit" href="/account">Account</Button>
               <LogoutButton />
             </>
           ) : (
