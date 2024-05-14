@@ -28,18 +28,22 @@ model User {
 }
 
 model Route {
-  id            Int             @id @default(autoincrement())
-  user_id       Int
-  route_name    String          @db.VarChar(100)
-  description   String
-  is_public     Boolean         @default(false)
-  is_active     Boolean         @default(false)
-  created_on    DateTime        @default(now())
-  updated_on    DateTime        @default(now())
+  id              Int             @id @default(autoincrement())
+  user_id         Int
+  route_name      String          @db.VarChar(100)
+  description     String
+  is_public       Boolean         @default(false)
+  is_active       Boolean         @default(false)
+  created_on      DateTime        @default(now())
+  updated_on      DateTime        @default(now())
+  origin_id       Int
+  destination_id  Int
   //relationships 
-  user          User            @relation(fields: [user_id], references: [id])
-  locationRoute LocationRoute[]
-  ratings       RouteRating[]
+  user            User            @relation(fields: [user_id], references: [id])
+  origin          Location        @relation("origin", fields: [origin_id], references: [id])
+  destination     Location        @relation("destination", fields: [destination_id], references: [id])
+  location        LocationRoute[]
+  ratings         RouteRating[]
 }
 
 model UserLocation {
@@ -61,10 +65,14 @@ model Location {
   image             String?
   rating_id         Int?
   days_of_operation Int?
-  //relatiomships 
+  latitude          Float
+  longitude         Float
+  //relationships 
   city              City             @relation(fields: [city_id], references: [id])
   country           Country          @relation(fields: [country_id], references: [id])
-  locationRoutes    LocationRoute[]
+  origin            Route[]          @relation("origin")
+  destination       Route[]          @relation("destination")
+  route             LocationRoute[]
   userLocations     UserLocation[]
   locationRatings   LocationRating[]
 }

@@ -20,6 +20,8 @@ CREATE TABLE "Route" (
     "is_active" BOOLEAN NOT NULL DEFAULT false,
     "created_on" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_on" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "origin_id" INTEGER NOT NULL,
+    "destination_id" INTEGER NOT NULL,
 
     CONSTRAINT "Route_pkey" PRIMARY KEY ("id")
 );
@@ -45,6 +47,8 @@ CREATE TABLE "Location" (
     "image" TEXT,
     "rating_id" INTEGER,
     "days_of_operation" INTEGER,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "Location_pkey" PRIMARY KEY ("id")
 );
@@ -101,6 +105,12 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- AddForeignKey
 ALTER TABLE "Route" ADD CONSTRAINT "Route_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Route" ADD CONSTRAINT "Route_origin_id_fkey" FOREIGN KEY ("origin_id") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Route" ADD CONSTRAINT "Route_destination_id_fkey" FOREIGN KEY ("destination_id") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserLocation" ADD CONSTRAINT "UserLocation_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
