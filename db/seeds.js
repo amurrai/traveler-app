@@ -62,38 +62,6 @@ async function main() {
     ]
   });
 
-  await prisma.route.createMany({
-    data: [
-      {
-        user_id: 1,
-        route_name: "Explore Calgary",
-        description: "Best things to do in Calgary",
-        is_public: true,
-        is_active: true,
-        created_on: new Date(),
-        updated_on: new Date()
-      },
-
-      {
-        user_id: 2,
-        route_name: "Explore Calgary",
-        description: "Best things to do in Calgary",
-        is_public: true,
-        is_active: true,
-        created_on: new Date(),
-        updated_on: new Date()
-      },
-    ]
-  });
-
-
-  await prisma.locationRoute.createMany({
-    data: [
-      { route_id: 1, location_id: 1 },
-      { route_id: 1, location_id: 2 },
-    ]
-  });
-
   await prisma.locationRating.createMany({
     data: [
       {
@@ -111,26 +79,6 @@ async function main() {
       }
     ]
   });
-
-
-  await prisma.routeRating.createMany({
-    data: [
-      {
-        user_id: 1,
-        route_id: 1,
-        rating: 4,
-        comment: "It was fun"
-      },
-
-      {
-        user_id: 2,
-        route_id: 1,
-        rating: 5,
-        comment: "I enjoyed the trip"
-      }
-    ]
-  });
-
 }
 
 
