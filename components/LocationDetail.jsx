@@ -1,4 +1,3 @@
-'use client'
 import { Box } from "@mui/material";
 
 
@@ -33,7 +32,7 @@ const LocationDetail = ( { location } ) => {
           justifyContent: 'center',
           alignItems: 'center'
         }}>
-          Picture: {location.image && <img src={location.image} alt={location.name} />}
+          Picture: {location.image}
         </Box>
       </Box>
       <Box display='flex' flexDirection='row' width='100%' height='150px' marginBottom={2.5}>

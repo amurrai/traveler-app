@@ -1,27 +1,38 @@
+'use client'
 import Location from "@/components/Location";
-import { fetchLocation } from "@/lib/data";
+import { fetchFilteredLocations, fetchLocation } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
 import Filter from "@/components/Filter";
 import { Grid } from "@mui/material";
 
-const LocationsPage = async () => {
-  const locations = await fetchLocation();
+
+
+const LocationsPage = async() =>  {
+  //fetching data from db
+   const locations = await fetchLocation();
+ 
+ //THIS FILTER HAS TO BE RAPLACED --------------------------------------------------------------------
+
   return (
     <ul>
       <Grid container spacing={3} sx={{ paddingTop: 10 }}>
       <Grid item xs={12} md={3}>
       <Filter />
       </Grid>
-        {locations.map(location => {
-          return (
-            <li key={location.id}>
-              <Link href={`/locations`}>
-                <Location location={location} />
-              </Link>
-            </li>
-          );
-        })}
+      <ul>
+      {locations.map(location => {
+        return (
+          <li key={location.id} >
+            <Link href={`/locations`}>
+              <Location location={location}  />
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+
+
         </Grid>
         
     </ul>
@@ -30,3 +41,8 @@ const LocationsPage = async () => {
 };
 
 export default LocationsPage;
+
+
+
+
+
