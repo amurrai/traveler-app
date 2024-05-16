@@ -3,7 +3,7 @@ import { Box, Typography, Select, MenuItem, TextField, Button } from '@mui/mater
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const Filter = ({ selectedCategory, setSelectedCategory, minRating, setMinRating, setFilteredLocations, handleFilterChange }) => {
+const Filter = ({ selectedCategory, setSelectedCategory, minRating, setMinRating, setFilteredLocations }) => {
   
   const [filterSelectedCategory, setFilterSelectedCategory] = useState(selectedCategory);
   const [filterMinRating, setFilterMinRating] = useState(minRating);
