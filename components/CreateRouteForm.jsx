@@ -12,11 +12,8 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const CreateRouteForm = ( {locationData} ) => {
-console.log(locationData);
 
   const { origin_id, destination_id, locations } = locationData;
-
-  console.log(origin_id, destination_id, locations);
   
   const router = useRouter();
 
@@ -43,9 +40,10 @@ console.log(locationData);
         locations
       })
     });
+    const route = await response.json();
 
     if (response.ok) {
-      router.refresh();
+      router.push(`/route-details/${route.route.id}`);
     } else {
       console.log('Error');
     }

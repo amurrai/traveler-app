@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {  
     const body = await req.json();
-    console.log(body);
 
     const { 
       user_id, 
@@ -31,6 +30,7 @@ export async function POST(req) {
         }
       }
     });
+    console.log(newRoute);
 
     return NextResponse.json({ route: newRoute });
   } catch(error) {
