@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import { Box, Typography, Select, MenuItem, TextField, Button } from '@mui/material';
 import axios from 'axios';
@@ -10,22 +11,23 @@ const Filter = ({ selectedCategory, setSelectedCategory, minRating, setMinRating
   const router = useRouter();
 
   const applyFilter = async () => {
-    try {
-      const response = await axios.get('/api/filtered-locations', {
-        params: {
-          selectedCategory: filterSelectedCategory,
-          minRating: filterMinRating,
-        },
-      });
-      setFilteredLocations(response.data);
-      setSelectedCategory(filterSelectedCategory);
-      setMinRating(filterMinRating);
+    // try {
+    //   const response = await axios.get('/api/locations', {
+    //     params: {
+    //       selectedCategory: filterSelectedCategory,
+    //       minRating: filterMinRating,
+    //     },
+    //   });
+      // setFilteredLocations(response.data);
+      // setSelectedCategory(filterSelectedCategory);
+      // setMinRating(filterMinRating);
 
-      router.push('/locations-filtered');
+      router.push('/locations?minRating=' + filterMinRating + '&category=' + filterSelectedCategory);
+      
 
-    } catch (error) {
-      console.error("Error fetching filtered locations:", error);
-    }
+    // } catch (error) {
+    //   console.error("Error fetching filtered locations:", error);
+    // }
   };
 
   const handleChangeCategory = (event) => {

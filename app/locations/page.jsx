@@ -1,4 +1,4 @@
-'use client'
+
 import Location from "@/components/Location";
 import { fetchFilteredLocations, fetchLocation } from "@/lib/data";
 import Link from "next/link";
@@ -8,15 +8,21 @@ import { Grid } from "@mui/material";
 
 
 
-const LocationsPage = async() =>  {
-   const locations = await fetchLocation();
+const LocationsPage = async(props) =>  {
+
+  console.log(props);
+
+  const category = props.searchParams.category;
+  const minRating = props.searchParams.minRating;
+   const locations = await fetchFilteredLocations(category, minRating );
+
  
  
   return (
     <ul>
       <Grid container spacing={3} sx={{ paddingTop: 10 }}>
       <Grid item xs={12} md={3}>
-      <Filter />
+      <Filter minRating={minRating} selectedCategory={category}/>
       </Grid>
       <ul>
       {locations.map(location => {

@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { List, ListItem, ListItemText, Grid } from "@mui/material";
 
-const FilteredLocations = ({ filteredLocations }) => {
+const FilteredLocations = (props) => {
+  const { filteredLocations } = props;
+  console.log("props", props);
   useEffect(() => {
     console.log("Filtered Locations in useEffect:", filteredLocations);
   }, [filteredLocations]);
 
-  console.log('FilterLocation Component sorted location:', filteredLocations);
+  //console.log('FilterLocation Component sorted location:', filteredLocations);
 
   return (
     <Grid container spacing={3}>
