@@ -76,6 +76,8 @@ const LocationList = ({locations}) => {
       optimizeWaypoints: true
     });
 
+    console.log(results);
+
     setLocationData({
       origin_id: formJson.origin,
       destination_id: formJson.destination,
@@ -155,8 +157,9 @@ const LocationList = ({locations}) => {
             }}
             onLoad={(map) => setMap(map)}
           >
-            <DirectionsRenderer directions={directionsResponse} />
+            <DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel')} />
           </GoogleMap>
+            <Card id="panel" sx={{ p: 2, mt: 2 }}/>
           <CreateRouteForm locationData={locationData}/>          
         </Box>
       )}
