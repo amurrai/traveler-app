@@ -1,9 +1,10 @@
 import { Box, Grid, Typography } from "@mui/material";
+import Link from "next/link";
 
 const RouteListInfoItem = ({ route }) => {
   return (
     <Grid display='flex' item xs={12} sm={6} md={4} justifyContent={'center'}>
-      <Box display='flex' flexDirection='row' height='200px' width='400px'>
+      <Box display='flex' flexDirection='row' height='200px' width='400px' component={Link} href={`/route-details/${route.id}`}>
         {route && <Box 
           component="img"
           display='flex' 

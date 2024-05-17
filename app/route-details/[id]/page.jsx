@@ -35,7 +35,7 @@ const RouteDetailsPage = async ({params}) => {
           value={rating.rating}
           readOnly
         />
-        <p>Hello This is some random text</p>{rating.comment}
+        {rating.comment}
       </Paper>
     )
   });
@@ -44,24 +44,26 @@ const RouteDetailsPage = async ({params}) => {
   return (
     <>
       <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
-        <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column'>
-          <Stack position='fixed' direction="column" spacing={2} component="div" margin={2}>
-            <Button variant='contained'>Route Details</Button>
-            <Button variant='outlined'>Add to favourites</Button>
-          </Stack>
-        </Box>
-        <Box display='flex' flexGrow='1' flexDirection='column' margin={2} border={1}>
-          <Box display='flex' direction='row' width='100%' justifyContent={"space-between"} border={1}>
+        <Box display='flex' flexGrow='1' flexDirection='column' margin={2}>
+          <Box display='flex' direction='row' width='100%' justifyContent={"space-between"}>
             <Typography variant='h5'>
                 {routeDetails.route_name}
             </Typography>
-            {/* <Button variant='contained'>
-              Add New Route
-            </Button>           */}
+            <Button variant='contained'>
+              Add To Favourites
+            </Button>    
           </Box>
-          <Box display='flex' width='100%' sx={{ mt: 2, ml: 0, width: '75%' }} border={1} margin={10}>
-            {/* <LocationList locations={locations} /> */}
+          <Box display='flex' paddingTop={1}>
+            <Typography variant='body1'>
+              {routeDetails.description}
+            </Typography>
           </Box>
+          <Box display='flex' sx={{ mt: 2, ml: 0, width: '100%' }} border={1} margin={10}>
+            <LocationList locations={locations} />
+          </Box>
+          <Typography variant='h6'>
+            Comments
+          </Typography>
           {ratings}
         </Box>
       </Box>
