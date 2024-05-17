@@ -52,5 +52,17 @@ const LocationDetailsPage = async ({ params }) => {
       </div>
     );
 
+  return (
+    <div className="space-y-4">
+      {locationDetails ? (  
+        <LocationDetail location={locationDetails} />
+      ) : (
+        <div>Loading....</div>
+      )}
+    </div>
+  )
+}
+
+
 };
 export default LocationDetailsPage;

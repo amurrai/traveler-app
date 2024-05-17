@@ -35,3 +35,24 @@ export async function POST(req) {
     return NextResponse.json({ message: "Something went wrong" });
   }
 }
+
+export async function PUT(req) {
+  try { 
+    const { userId, password } = await req.json();
+
+    const hashedPassword = await hash(password, 10);
+    console.log(hashedPassword);
+    const newPassword = await prisma.user.update({
+      where: {
+        id: userId
+      }, 
+      data: {
+        password: hashedPassword
+      }
+    });
+
+    return NextResponse.json({ message: "Password updated" });
+  } catch (error) {
+    return NextResponse.json({ message: "Something went wrong" });
+  }
+}

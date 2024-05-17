@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import { EditOutlined, HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
+import { EditOutlined, HighlightOffOutlined} from "@mui/icons-material"
 
-const RouteListItem = () => {
+const PublishedListItem = () => {
   return (
     <Box display='flex' width='100%' direction='row' marginTop={2}>
       <Box display='flex' direction='column' width='250px' height='150px' justifyContent='center' alignItems='center' backgroundColor='#888888'>
@@ -14,10 +14,7 @@ const RouteListItem = () => {
             <Box display={'flex'} direction='row' justifyContent={'right'}>
               <Typography variant="body">Created on: 05/07/2024</Typography>
             </Box>
-            <Box display={'flex'} direction='row' justifyContent={'right'}>
-              <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
-                <PushPinOutlined />
-              </IconButton>
+            <Box display={'flex'} direction='row' justifyContent={'right'}>              
               <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
                 <EditOutlined />
               </IconButton>
@@ -37,4 +34,4 @@ const RouteListItem = () => {
   )
 };
 
-export default RouteListItem;
+export default PublishedListItem;
