@@ -278,4 +278,3 @@ const calgaryPlaces = [
 
 
 export default calgaryPlaces;
-

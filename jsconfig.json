@@ -1,18 +1,18 @@
-{
-  "compilerOptions": {
-    "paths": {
-      "@/*": ["./*"]
-    }
-  }
-}
-
-
 // {
 //   "compilerOptions": {
-//     "baseUrl": "./", // Adjusted to make paths relative to the root of the project
 //     "paths": {
-//       "@/*": ["app/*"] // Adjusted to point to the src directory
+//       "@/*": ["./*"]
 //     }
 //   }
 // }
+
+
+{
+  "compilerOptions": {
+    "baseUrl": "./", // Adjusted to make paths relative to the root of the project
+    "paths": {
+      "@/*": ["*"] // Adjusted to point to the src directory
+    }
+  }
+}
 
