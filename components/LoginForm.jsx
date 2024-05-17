@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Box, Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 
 const LoginForm = () => {
 
@@ -42,13 +42,15 @@ const LoginForm = () => {
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="80vh">
         <Paper elevation={4} sx={{ padding: 2, height: '350px', minWidth: 'sx', backgroundColor: '#F0F5F9' }}>
           <Typography component="h1" variant="h5" gutterBottom>Sign In</Typography>
-          <Box component="form" onSubmit={onSubmit} noValidate>
+          <Box component="form" onSubmit={onSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}> 
                 <TextField variant="outlined" required fullWidth 
                   id="email"
                   label="Email Address"
+                  type="email"
                   name="email"
+                  value={formData.email}
                   onChange={handleChange}
                 />
               </Grid>
@@ -58,6 +60,7 @@ const LoginForm = () => {
                   label="Password"
                   type="password"
                   id="password"
+                  value={formData.password}
                   onChange={handleChange}
                 />
               </Grid>
