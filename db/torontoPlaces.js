@@ -257,4 +257,3 @@ const torontoPlaces = [
 ];
 
 export default torontoPlaces;
-
