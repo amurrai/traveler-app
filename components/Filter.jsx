@@ -4,30 +4,16 @@ import { Box, Typography, Select, MenuItem, TextField, Button } from '@mui/mater
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-const Filter = ({ selectedCategory, setSelectedCategory, minRating, setMinRating, setFilteredLocations }) => {
+const Filter = ({ selectedCategory, minRating }) => {
   
   const [filterSelectedCategory, setFilterSelectedCategory] = useState(selectedCategory);
   const [filterMinRating, setFilterMinRating] = useState(minRating);
   const router = useRouter();
 
   const applyFilter = async () => {
-    // try {
-    //   const response = await axios.get('/api/locations', {
-    //     params: {
-    //       selectedCategory: filterSelectedCategory,
-    //       minRating: filterMinRating,
-    //     },
-    //   });
-      // setFilteredLocations(response.data);
-      // setSelectedCategory(filterSelectedCategory);
-      // setMinRating(filterMinRating);
 
-      router.push('/locations?minRating=' + filterMinRating + '&category=' + filterSelectedCategory);
+      router.push(`/locations?minRating=${filterMinRating}&category=${filterSelectedCategory}`);
       
-
-    // } catch (error) {
-    //   console.error("Error fetching filtered locations:", error);
-    // }
   };
 
   const handleChangeCategory = (event) => {
@@ -40,8 +26,6 @@ const Filter = ({ selectedCategory, setSelectedCategory, minRating, setMinRating
     setFilterMinRating(value);
   };
 
-
-  //Filter FORM
 
   return (
     <Box sx={{ p: 2 }}>
