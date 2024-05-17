@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, Button, Rating, TextField } from "@mui/material";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -45,23 +46,33 @@ const RouteRatingForm = ({ route_id }) => {
   };
 
   return (
-    <div>
-      <form className="block" onSubmit={onSubmit}>
-        <div>
-          Rating: <select name="rating" value={formData.rating} onChange={handleChange}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select> 
-        </div>
-        <div>
-          Comment: <input type="text" name="comment" value={formData.comment} onChange={handleChange} />
-        </div>
-        <button type="submit">Submit Comment</button>
-      </form>
-    </div>
+    <Box display="flex" flexDirection="column" component="form" onSubmit={onSubmit}>
+      <Rating
+        name="rating"
+        value={formData.rating}
+        onChange={handleChange}
+      />
+      <TextField name='comment' label='Comment' value={formData.value} variant='outlined' multiline rows={4} />
+      <Button variant='contained' type='submit' sx={{ width: 200, alignSelf: 'center'}}>Submit Comment</Button>
+    </Box>
+    
+    // <div>
+    //   <form className="block" onSubmit={onSubmit}>
+    //     <div>
+    //       Rating: <select name="rating" value={formData.rating} onChange={handleChange}>
+    //                 <option value="1">1</option>
+    //                 <option value="2">2</option>
+    //                 <option value="3">3</option>
+    //                 <option value="4">4</option>
+    //                 <option value="5">5</option>
+    //               </select> 
+    //     </div>
+    //     <div>
+    //       Comment: <input type="text" name="comment" value={formData.comment} onChange={handleChange} />
+    //     </div>
+    //     <button type="submit">Submit Comment</button>
+    //   </form>
+    // </div>
   )
 }
 
