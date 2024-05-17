@@ -20,13 +20,13 @@ const Navbar = async () => {
         </Typography>
         <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }} component="div">
           <Button color="inherit" href="/popular-routes">Popular Routes</Button>
-          <Button color="inherit">Popular Locations</Button>
+          <Button color="inherit" href="/popular-locations">Popular Locations</Button>
           {session?.user && (<Button color="inherit" href="/dashboard">Dashboard</Button>)}          
         </Stack>
         <Stack direction="row" spacing={2}>
           {session?.user ? (
             <>
-              <Button color="inherit">Account</Button>
+              <Button color="inherit" href="/account">Account</Button>
               <LogoutButton />
             </>
           ) : (

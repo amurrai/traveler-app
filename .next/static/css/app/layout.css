@@ -559,8 +559,8 @@ video {
 .table {
   display: table;
 }
-.h-screen {
-  height: 100vh;
+.hidden {
+  display: none;
 }
 .w-full {
   width: 100%;
