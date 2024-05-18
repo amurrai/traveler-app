@@ -16,7 +16,7 @@ import CreateRouteForm from "./CreateRouteForm";
 
 
 const LocationList = ({locations, routeValues }) => {
-  const center = { lat: locations[0].latitude, lng: locations[0].longitude };
+const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -40,8 +40,8 @@ const LocationList = ({locations, routeValues }) => {
     e.preventDefault();
 
     // Variables for generating the route
-    const origin = { placeId: locations.find(x => x.id == routeValues.origin_id)?.place_id };
-    const destination = { placeId: locations.find(x => x.id == routeValues.destination_id)?.place_id };
+    const origin = { placeId: locations.find(x => Number(x.id) == Number(routeValues.origin_id))?.place_id };
+    const destination = { placeId: locations.find(x => Number(x.id) == Number(routeValues.destination_id))?.place_id };
     let waypoints = [];
 
     // Adds all locations except the origin and destination to the waypoints array
@@ -66,7 +66,7 @@ const LocationList = ({locations, routeValues }) => {
   return (
     <Box width="100%">
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', justifyContent: 'flex-start', rowGap: '15px' }}>
+        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', justifyContent: 'flex-start',  rowGap: '15px' }}>
           {locations.map(location => {
             return (
               <Card key={location.id} sx={{ width: 200, height: 200 }}>
