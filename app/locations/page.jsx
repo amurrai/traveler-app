@@ -12,8 +12,8 @@ const LocationsPage = async(props) =>  {
 
   console.log(props);
 
-  const category = props.searchParams.category;
-  const minRating = props.searchParams.minRating;
+  const category = props.searchParams.category || '';
+  const minRating = props.searchParams.minRating || '';
    const locations = await fetchFilteredLocations(category, minRating );
 
  

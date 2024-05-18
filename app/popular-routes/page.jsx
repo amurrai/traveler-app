@@ -11,7 +11,7 @@ const PopularRoutesPage = async () => {
   // pass in route for each RoutelistInfoItem component
   const routeListInfoItem = routes.map((route) => {
     return (
-      <RouteListInfoItem route={route}/>
+        <RouteListInfoItem route={route}/>
     );
   });
 
