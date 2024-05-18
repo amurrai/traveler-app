@@ -16,8 +16,5 @@ const LocationDetailsPage = async ({ params }) => {
       )}
     </div>
   )
-}
-
-
-
+};
 export default LocationDetailsPage;
