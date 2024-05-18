@@ -1,4 +1,5 @@
-import LocationList from "@/components/LocationList";
+import FavouritesButton from "@/components/favouritesButton";
+import RouteLocationList from "@/components/RouteLocationList";
 import RouteRatingForm from "@/components/RouteRatingForm";
 import { authOptions } from "@/lib/auth";
 import { fetchRouteDetails } from "@/lib/data";
@@ -47,7 +48,6 @@ const RouteDetailsPage = async ({params}) => {
     )
   });
 
-  console.log(routeDetails);
 
   return (
     <>
@@ -57,9 +57,10 @@ const RouteDetailsPage = async ({params}) => {
             <Typography variant='h5'>
                 {routeDetails.route_name}
             </Typography>
-            <Button variant='contained'>
+            {/* <Button variant='contained' onClick={handleClick}>
               Add To Favourites
-            </Button>    
+            </Button>     */}
+            <FavouritesButton />
           </Box>
           <Box display='flex' paddingTop={1}>
             <Typography variant='body1'>
@@ -67,7 +68,10 @@ const RouteDetailsPage = async ({params}) => {
             </Typography>
           </Box>
           <Box display='flex' sx={{ my: 2, mx: 'auto', width: '100%' }} margin={10} width="100%" alignContent="">
-            <LocationList locations={locations} hideCreateRouteForm={true} />
+            <RouteLocationList
+              locations={locations}
+              routeValues={{ origin_id: routeDetails.origin_id, destination_id: routeDetails.destination_id }} 
+            />
           </Box>
           {session?.user 
           && !routeDetails.ratings.some(rating => rating.user_id === userData.id)
