@@ -3,7 +3,7 @@ import Location from "@/components/Location";
 import { fetchFilteredLocations, fetchLocation } from "@/lib/data";
 import Link from "next/link";
 import React from "react";
-import Filter from "@/components/Filter";
+import FavoriteButton from "@/components/FavoriteButton";
 import { Grid } from "@mui/material";
 
 
@@ -12,9 +12,9 @@ const FavoritePage = async(props) =>  {
 
   console.log(props);
 
-  const category = props.searchParams.category || '';
-  const minRating = props.searchParams.minRating || '';
-   const locations = await fetchFilteredLocations(category, minRating );
+  // const favorite = props.searchParams.category || '';
+  // const minRating = props.searchParams.minRating || '';
+  //  const locations = await fetchFilteredLocations(category, minRating );
 
  
  
