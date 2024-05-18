@@ -15,7 +15,7 @@ const RouteDetailsPage = async ({params}) => {
 
   // // todo: move the data processing somewhere else?
   const locations = routeDetails.location.map(entry => entry.location);
-  console.log(locations);
+
   // populate list of locations in route
   const locationNames = locations.map((location) => {
     return (
@@ -28,17 +28,25 @@ const RouteDetailsPage = async ({params}) => {
   // // populate list of ratings in route
   const ratings = routeDetails.ratings.map((rating) => {
     return (
-      <Paper sx={{ width: "50%" }}>
+      <>
+      <Paper sx={{ autoHeight: true, width: '50%', p: 2, my: 1 }}>
         <Rating
           key={rating.id}
           name="read-only"
           value={rating.rating}
+          size="large"
           readOnly
         />
-        {rating.comment}
+        <Box>
+          <Typography variant="caption" fontWeight="bold">Reviewed by: {rating.user.username}</Typography>
+        </Box>
+
+        <Typography variant="body">{rating.comment}</Typography>
       </Paper>
+      </>
     )
   });
+
   console.log(routeDetails);
 
   return (
@@ -58,40 +66,25 @@ const RouteDetailsPage = async ({params}) => {
               {routeDetails.description}
             </Typography>
           </Box>
-          <Box display='flex' sx={{ mt: 2, ml: 0, width: '100%' }} border={1} margin={10}>
-            <LocationList locations={locations} />
+          <Box display='flex' sx={{ my: 2, mx: 'auto', width: '100%' }} margin={10} width="100%" alignContent="">
+            <LocationList locations={locations} hideCreateRouteForm={true} />
           </Box>
-          <Typography variant='h6'>
-            Comments
-          </Typography>
+          {session?.user 
+          && !routeDetails.ratings.some(rating => rating.user_id === userData.id)
+          && (
+            <>
+              <Typography variant='h6'>
+                Leave a Comment
+              </Typography>
+              <RouteRatingForm route_id={routeDetails.id}/>
+            </>)}
+          {ratings.length !== 0 && <Typography variant='h6'>
+            Ratings From Other Users 
+          </Typography>}
           {ratings}
         </Box>
       </Box>
-      {session?.user && <RouteRatingForm route_id={routeDetails.id}/>}
     </>
-
-    // <div className="space-y-4">
-    //   <table className="text-left">
-    //     <thead>
-    //       <tr>
-    //         <th>Route Name</th>
-    //         <th>Description</th>
-    //         <th>Locations</th>
-    //         <th>Ratings</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       <tr>
-    //         <td>{routeDetails.route_name}</td>
-    //         <td>{routeDetails.description}</td>
-    //         <td>{locationNames}</td>
-    //         <td>{ratings}</td>
-    //       </tr>
-    //     </tbody>
-    //   </table>
-
-    // {session?.user && <RouteRatingForm route_id={routeDetails.id}/>}
-    // </div>
   )
 }
 

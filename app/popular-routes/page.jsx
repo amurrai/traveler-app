@@ -11,7 +11,7 @@ const PopularRoutesPage = async () => {
   // pass in route for each RoutelistInfoItem component
   const routeListInfoItem = routes.map((route) => {
     return (
-        <RouteListInfoItem key={route.id} route={route}/>
+        <RouteListInfoItem route={route}/>
     );
   });
 
@@ -34,7 +34,7 @@ const PopularRoutesPage = async () => {
             OUR MOST POPULAR ROUTES
           </Typography>
         </Box>
-        <Grid container columnSpacing={1} rowSpacing={5} border={1}>
+        <Grid container columnSpacing={1} rowSpacing={5}>
           {routeListInfoItem}
         </Grid>        
       </Box>

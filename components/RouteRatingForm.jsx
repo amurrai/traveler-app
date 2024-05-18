@@ -46,33 +46,16 @@ const RouteRatingForm = ({ route_id }) => {
   };
 
   return (
-    <Box display="flex" flexDirection="column" component="form" onSubmit={onSubmit}>
+    <Box display="flex" flexDirection="column" component="form" paddingTop={1} onSubmit={onSubmit}>
       <Rating
         name="rating"
         value={formData.rating}
         onChange={handleChange}
+        size="large"
       />
-      <TextField name='comment' label='Comment' value={formData.value} variant='outlined' multiline rows={4} />
-      <Button variant='contained' type='submit' sx={{ width: 200, alignSelf: 'center'}}>Submit Comment</Button>
+      <TextField name='comment' label='Comment' onChange={handleChange} value={formData.value} variant='outlined' multiline rows={4} sx={{ my: 1, width: "50%" }}/>
+      <Button variant='contained' type='submit' sx={{ mb: 2, width: "200px"}}>Submit Comment</Button>
     </Box>
-    
-    // <div>
-    //   <form className="block" onSubmit={onSubmit}>
-    //     <div>
-    //       Rating: <select name="rating" value={formData.rating} onChange={handleChange}>
-    //                 <option value="1">1</option>
-    //                 <option value="2">2</option>
-    //                 <option value="3">3</option>
-    //                 <option value="4">4</option>
-    //                 <option value="5">5</option>
-    //               </select> 
-    //     </div>
-    //     <div>
-    //       Comment: <input type="text" name="comment" value={formData.comment} onChange={handleChange} />
-    //     </div>
-    //     <button type="submit">Submit Comment</button>
-    //   </form>
-    // </div>
   )
 }
 

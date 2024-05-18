@@ -22,7 +22,7 @@ import {
 import CreateRouteForm from "./CreateRouteForm";
 
 
-const LocationList = ({locations}) => {
+const LocationList = ({locations, hideCreateRouteForm }) => {
   const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
   const { isLoaded } = useJsApiLoader({
@@ -160,7 +160,7 @@ const LocationList = ({locations}) => {
             <DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel')} />
           </GoogleMap>
             <Card id="panel" sx={{ p: 2, mt: 2 }}/>
-          <CreateRouteForm locationData={locationData}/>          
+          {!hideCreateRouteForm && <CreateRouteForm locationData={locationData}/>}
         </Box>
       )}
     </Box>
