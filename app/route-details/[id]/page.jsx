@@ -1,6 +1,8 @@
+import LocationList from "@/components/LocationList";
 import RouteRatingForm from "@/components/RouteRatingForm";
 import { authOptions } from "@/lib/auth";
 import { fetchRouteDetails } from "@/lib/data";
+import { Box, Stack, Button, Typography, Rating, Paper } from "@mui/material";
 import { getServerSession } from "next-auth";
 import React from "react";
 
@@ -8,10 +10,11 @@ const RouteDetailsPage = async ({params}) => {
   const session = await getServerSession(authOptions);
   const userData = session?.user;
 
+  // const [ratings, setRatings] = useState(0);
   const routeDetails = await fetchRouteDetails(params.id);
 
-  // todo: move the data processing somewhere else?
-  const locations = routeDetails.locationRoute.map(entry => entry.location);
+  // // todo: move the data processing somewhere else?
+  const locations = routeDetails.location.map(entry => entry.location);
 
   // populate list of locations in route
   const locationNames = locations.map((location) => {
@@ -22,39 +25,66 @@ const RouteDetailsPage = async ({params}) => {
     );
   });
 
-  // populate list of ratings in route
+  // // populate list of ratings in route
   const ratings = routeDetails.ratings.map((rating) => {
     return (
-      <li key={rating.id}>
-        {rating.rating} | {rating.comment}
-      </li>
+      <>
+      <Paper sx={{ autoHeight: true, width: '50%', p: 2, my: 1 }}>
+        <Rating
+          key={rating.id}
+          name="read-only"
+          value={rating.rating}
+          size="large"
+          readOnly
+        />
+        <Box>
+          <Typography variant="caption" fontWeight="bold">Reviewed by: {rating.user.username}</Typography>
+        </Box>
+
+        <Typography variant="body">{rating.comment}</Typography>
+      </Paper>
+      </>
     )
   });
+
   console.log(routeDetails);
 
   return (
-    <div className="space-y-4">
-      <table className="text-left">
-        <thead>
-          <tr>
-            <th>Route Name</th>
-            <th>Description</th>
-            <th>Locations</th>
-            <th>Ratings</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{routeDetails.route_name}</td>
-            <td>{routeDetails.description}</td>
-            <td>{locationNames}</td>
-            <td>{ratings}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      {session?.user && <RouteRatingForm route_id={routeDetails.id}/>}
-    </div>
+    <>
+      <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
+        <Box display='flex' flexGrow='1' flexDirection='column' margin={2}>
+          <Box display='flex' direction='row' width='100%' justifyContent={"space-between"}>
+            <Typography variant='h5'>
+                {routeDetails.route_name}
+            </Typography>
+            <Button variant='contained'>
+              Add To Favourites
+            </Button>    
+          </Box>
+          <Box display='flex' paddingTop={1}>
+            <Typography variant='body1'>
+              {routeDetails.description}
+            </Typography>
+          </Box>
+          <Box display='flex' sx={{ my: 2, mx: 'auto', width: '100%' }} margin={10} width="100%" alignContent="">
+            <LocationList locations={locations} hideCreateRouteForm={true} />
+          </Box>
+          {session?.user 
+          && !routeDetails.ratings.some(rating => rating.user_id === userData.id)
+          && (
+            <>
+              <Typography variant='h6'>
+                Leave a Comment
+              </Typography>
+              <RouteRatingForm route_id={routeDetails.id}/>
+            </>)}
+          {ratings.length !== 0 && <Typography variant='h6'>
+            Ratings From Other Users 
+          </Typography>}
+          {ratings}
+        </Box>
+      </Box>
+    </>
   )
 }
 

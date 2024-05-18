@@ -18,4 +18,6 @@ const LocationDetailsPage = async ({ params }) => {
   )
 }
 
+
+
 export default LocationDetailsPage;
