@@ -4,16 +4,14 @@ import { PrismaClient } from '@prisma/client'
 import torontoPlaces from './torontoPlaces.js';
 import calgaryPlaces from './calgaryPlaces.js';
 import vancouverPlaces from './vancouverPlaces.js';
+import { users, locationRatings, routeRatings } from './seedsData.js';
 
 const prisma = new PrismaClient()
 
 async function main() {
 
   await prisma.user.createMany({
-    data: [
-      { email: "bobdylan@gmail.com", username: "hacker", password: "password", first_name: "Bob", last_name: "Dylan" },
-      { email: "margaret@gmail.com", username: "margo", password: "password", first_name: "Margaret", last_name: "Thatcher" }
-    ]
+    data: users
   });
 
   await prisma.city.createMany({
@@ -63,21 +61,11 @@ async function main() {
   });
 
   await prisma.locationRating.createMany({
-    data: [
-      {
-        user_id: 1,
-        location_id: 1,
-        rating: 5,
-        comment: "I liked it"
-      },
+    data: locationRatings
+  });
 
-      {
-        user_id: 2,
-        location_id: 2,
-        rating: 4,
-        comment: "It wasn't very scary"
-      }
-    ]
+  await prisma.routeRating.createMany({
+    data: routeRatings
   });
 }
 
