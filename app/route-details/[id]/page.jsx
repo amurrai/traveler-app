@@ -1,4 +1,3 @@
-import FavouritesButton from "@/components/favouritesButton";
 import RouteLocationList from "@/components/RouteLocationList";
 import RouteRatingForm from "@/components/RouteRatingForm";
 import { authOptions } from "@/lib/auth";
@@ -57,10 +56,9 @@ const RouteDetailsPage = async ({params}) => {
             <Typography variant='h5'>
                 {routeDetails.route_name}
             </Typography>
-            {/* <Button variant='contained' onClick={handleClick}>
+            <Button variant='contained'>
               Add To Favourites
-            </Button>     */}
-            <FavouritesButton />
+            </Button>    
           </Box>
           <Box display='flex' paddingTop={1}>
             <Typography variant='body1'>
