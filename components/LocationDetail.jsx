@@ -7,7 +7,7 @@ import {
  } from "@mui/material";
 
 
-const LocationDetail = ( { location } ) => {
+const LocationDetail = ( {location} ) => {
   const mapUrl = "https://www.google.com/maps/embed/v1/place?key=" + process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY + "&q=place_id:" + location.place_id;
 
   return (

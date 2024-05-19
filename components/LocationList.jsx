@@ -20,6 +20,7 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import CreateRouteForm from "./CreateRouteForm";
+import LocationListItem from "./LocationListItem"
 
 
 const LocationList = ({locations, hideCreateRouteForm }) => {
@@ -94,24 +95,7 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
           {locations.map(location => {
             return (
-              <Card key={location.id} sx={{ width: 200, height: 200 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image={location.image}
-                  title={location.name}
-                />
-                <CardContent sx={{ p: 1}}>
-                  <FormControlLabel control={
-                    <Checkbox
-                      value={location.id}
-                      onChange={(e) => {handleCheckBoxChange(e)}}
-                      inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                  } label={location.name}>
-                  </FormControlLabel>
-                  
-                </CardContent>
-              </Card>
+              <LocationListItem location={location}/>
             )
           })}
         </Box>
