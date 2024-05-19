@@ -99,7 +99,7 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
             )
           })}
         </Box>
-        <Box sx={{ display: 'flex', gap: '10px', mt: 4, mb: 4 }}>
+        <Box sx={{ display: 'flex', gap: '10px', mt: 4, }}>
             <FormControl sx={{width: '300px'}}>
               <InputLabel> Select starting location
               </InputLabel>
@@ -124,7 +124,6 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
               </Select>
             </FormControl>
             <Button variant="contained" label='Submit' type='submit'>Submit</Button>
-
         </Box>
       </form>
       {directionsResponse && (

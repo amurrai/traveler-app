@@ -2,13 +2,16 @@
 import React, { useState } from "react";
 import { 
   Button,
+  Box,
   Card,
   CardContent,
   CardMedia,
   Checkbox,
   FormControlLabel,
+  IconButton,
   Modal,
 } from "@mui/material";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import LocationDetail from "./LocationDetail";
 
@@ -30,13 +33,19 @@ const LocationListItem = ( {location} ) => {
         display: 'flex', 
         flexDirection: 'column', 
         width: 250, 
-        height: 250 }}>
+        height: 230,
+        }}>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{ minHeight: 140 }}
         image={location.image}
         title={location.name}
       />
-      <CardContent sx={{ p: 1}}>
+      <CardContent sx={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        py: '10px !important' 
+        }}>
         <FormControlLabel control={
           <Checkbox
             value={location.id}
@@ -45,13 +54,10 @@ const LocationListItem = ( {location} ) => {
           />
         } label={location.name}>
         </FormControlLabel>
+        <IconButton>
+          <InfoOutlinedIcon sx={{ color: "grey" }} onClick={handleOpen} />  
+        </IconButton>
       </CardContent>
-      <Button 
-        sx={{ display: 'flex', alignSelf: 'center' }}
-        variant="outlined" 
-        onClick={handleOpen}>
-        Location Info
-      </Button>
       <Modal
         open={open}
         onClose={handleClose}
