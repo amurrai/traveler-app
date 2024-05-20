@@ -8,6 +8,9 @@ import { useSession } from 'next-auth/react';
 
 
 const Location = ({ location }) => {
+  const averageRating = location.locationRatings?.length
+    ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
+    : "No ratings";
 
   const averageRating = location.locationRatings?.length
     ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
@@ -51,14 +54,18 @@ const Location = ({ location }) => {
           height="140"
           image={location.image}
           alt={location.name}
+
         />  
+
       )}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {location.name}
+
           <IconButton onClick={handleFavoriteClick} sx={{ float: 'right' }}>
             {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
           </IconButton>
+
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Description: {location.description}
@@ -84,3 +91,4 @@ const Location = ({ location }) => {
 };
 
 export default Location;
+

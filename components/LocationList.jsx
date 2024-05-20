@@ -1,89 +1,153 @@
 'use client'
-import React, { useState, useEffect } from 'react';
-import FavoriteButton from './FavoriteButton';
-import { Container, Typography, Card, CardContent, CardMedia, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import React, { useState } from "react";
+import { 
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
-const CardMediaStyled = styled(CardMedia)({
-  height: 140,
-});
+import {
+  useJsApiLoader,
+  GoogleMap,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
+import CreateRouteForm from "./CreateRouteForm";
+import LocationListItem from "./LocationListItem"
 
-const CardContentStyled = styled(CardContent)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-});
 
-const LocationList = ({ userId }) => {
-  const [locations, setLocations] = useState([]);
-  const [favorites, setFavorites] = useState(new Set());
+const LocationList = ({locations, hideCreateRouteForm }) => {
+  const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      const response = await fetch('/api/locations');
-      const data = await response.json();
-      setLocations(data.locations);
-    };
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  });
 
-    const fetchFavorites = async () => {
-      const response = await fetch(`/api/favorites?userId=${userId}`);
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        const favoriteSet = new Set(data.map(fav => fav.location_id));
-        setFavorites(favoriteSet);
-      } else {
-        console.error('Expected data to be an array:', data);
-      }
-    };
+  // Google Maps and Routes states
+  const [map, setMap] = useState(null);
+  const [directionsResponse, setDirectionsResponse] = useState(null);
 
-    fetchLocations();
-    if (userId) {
-      fetchFavorites();
+  // State to monitor selected locations
+  const [selectedPlaces, setSelectedPlaces] = useState([]);
+  const [locationData, setLocationData] = useState({});
+  
+  const handleCheckBoxChange = (check) => {
+    // Reset DirectionsResponse if selection changes
+    setDirectionsResponse(null);
+    const checkedPlaces = check.target.value;
+    if(check.target.checked){
+      setSelectedPlaces([...selectedPlaces,checkedPlaces])
     }
-  }, [userId]);
+    else{
+      setSelectedPlaces(selectedPlaces.filter(id=>id !== checkedPlaces))
+    }
+  }
 
-  const toggleFavorite = (locationId) => {
-    setFavorites(prev => {
-      const newFavorites = new Set(prev);
-      if (newFavorites.has(locationId)) {
-        newFavorites.delete(locationId);
-      } else {
-        newFavorites.add(locationId);
-      }
-      return newFavorites;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const formJson = Object.fromEntries(form.entries());
+
+    // Variables for generating the route
+    const origin = { placeId: locations.find(x => x.id == formJson.origin)?.place_id };
+    const destination = { placeId: locations.find(x => x.id == formJson.destination)?.place_id };
+    let waypoints = [];
+
+    // Adds all locations except the origin and destination to the waypoints array
+    selectedPlaces.map((place) => {
+      if(place !== formJson.origin && place !== formJson.destination)
+      waypoints.push({location: {placeId: locations.find(x => x.id == place)?.place_id}})
+    });  
+
+    // API request for route
+    const directionsService = new window.google.maps.DirectionsService();
+    const results = await directionsService.route({
+      origin: origin,
+      destination: destination,
+      waypoints: waypoints,
+      travelMode: window.google.maps.TravelMode.WALKING,
+      optimizeWaypoints: true
     });
-  };
+
+    console.log(results);
+
+    setLocationData({
+      origin_id: formJson.origin,
+      destination_id: formJson.destination,
+      locations: selectedPlaces
+    });
+    
+    setDirectionsResponse(results);
+    };
+
 
   return (
-    <Container>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Locations
-      </Typography>
-      <Grid container spacing={3}>
-        {locations.map(location => (
-          <Grid item xs={12} sm={6} md={4} key={location.id}>
-            <Card>
-              <CardMediaStyled
-                image={location.imageUrl} // Assuming each location has an imageUrl property
-                title={location.name}
-              />
-              <CardContentStyled>
-                <Typography variant="h5" component="h2">
-                  {location.name}
-                </Typography>
-                <FavoriteButton 
-                  userId={userId} 
-                  locationId={location.id} 
-                  isFavorite={favorites.has(location.id)}
-                  onToggleFavorite={toggleFavorite} 
-                />
-              </CardContentStyled>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </Container>
-  );
+    <Box>
+      <form onSubmit={handleSubmit}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
+          {locations.map(location => {
+            return (
+              <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange}/>
+            )
+          })}
+        </Box>
+        <Box sx={{ display: 'flex', gap: '10px', mt: 4, }}>
+            <FormControl sx={{width: '300px'}}>
+              <InputLabel> Select starting location
+              </InputLabel>
+              <Select autoWidth name='origin'>
+                {!selectedPlaces && <MenuItem>' '</MenuItem>}
+                {selectedPlaces && selectedPlaces.map((id) => (
+                  <MenuItem 
+                    key={id} 
+                    value={id}>{locations.find(x => x.id == id)?.name}
+
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{width: '300px'}}>
+              <InputLabel> Select ending location
+              </InputLabel>
+              <Select autoWidth name='destination'>
+                {selectedPlaces.map((id) => (
+                  <MenuItem key={id} value={id}>{locations.find(x => x.id == id)?.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button variant="contained" label='Submit' type='submit'>Submit</Button>
+        </Box>
+      </form>
+      {directionsResponse && (
+        <Box>
+          <GoogleMap
+            center={center}
+            zoom={5}
+            mapContainerStyle={{ width: '100%', height: '60vh'}}
+            options={{
+              zoomControl: false,
+              streetViewControl: false,
+              mapTypeControl: false,
+              fullscreenControl: false,
+            }}
+            onLoad={(map) => setMap(map)}
+          >
+            <DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel')} />
+          </GoogleMap>
+            <Card id="panel" sx={{ p: 2, mt: 2 }}/>
+          {!hideCreateRouteForm && <CreateRouteForm locationData={locationData}/>}
+        </Box>
+      )}
+    </Box>
+  )
 };
 
-export default LocationList;
+export default LocationList

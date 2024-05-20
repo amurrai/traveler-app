@@ -7,7 +7,6 @@ const LocationDetailsPage = async ({ params }) => {
 
   const locationDetails = await fetchLocationDetails(params.id);
 
-
   return (
     <div className="space-y-4">
       {locationDetails ? (  
@@ -15,10 +14,7 @@ const LocationDetailsPage = async ({ params }) => {
       ) : (
         <div>Loading....</div>
       )}
-      
-
     </div>
   )
-}
-
+};
 export default LocationDetailsPage;

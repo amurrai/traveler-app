@@ -23,7 +23,9 @@ const LocationsPage = async(props) =>  {
  
   return (
     <ul>
+
       <Grid container spacing={3} sx={{ paddingTop: 15 }}>
+
       <Grid item xs={12} md={3}>
       <Filter minRating={minRating} selectedCategory={category}/>
       </Grid>
@@ -38,12 +40,12 @@ const LocationsPage = async(props) =>  {
         );
       })}
     </ul>
+
       </Grid>
-        
+
     </ul>
     
   );
 };
 
 export default LocationsPage;
-
