@@ -16,11 +16,11 @@ const Navbar = async () => {
           <CatchingPokemonIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ paddingRight: 2 }}>
-          <Link href="/">My Cool App</Link>
+          <Link href="/">WanderQuest</Link>
         </Typography>
         <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }} component="div">
           <Button color="inherit" href="/popular-routes">Popular Routes</Button>
-          <Button color="inherit" href="/popular-locations">Popular Locations</Button>
+          <Button color="inherit" href="/locations">Popular Locations</Button>
           {session?.user && (<Button color="inherit" href="/dashboard">Dashboard</Button>)}          
         </Stack>
         <Stack direction="row" spacing={2}>
