@@ -1,5 +1,5 @@
 import { Box, IconButton, Paper, Typography } from "@mui/material";
-import { EditOutlined, HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
+import { HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
 
 const RouteListItem = ({ route, onDelete }) => {
 
@@ -32,9 +32,6 @@ const RouteListItem = ({ route, onDelete }) => {
               <IconButton size="small" edge="start" color="inherit" aria-label="active" href="/">
                 <PushPinOutlined />
               </IconButton>
-              {/* <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
-                <EditOutlined />
-              </IconButton> */}
               <IconButton size="small" edge="start" color="inherit" aria-label="delete" onClick={handleDeleteClick}>
                 <HighlightOffOutlined />
               </IconButton>

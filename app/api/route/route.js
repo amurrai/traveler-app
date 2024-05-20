@@ -5,25 +5,48 @@ export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
     const userId = searchParams.get("userId");
+    const type = searchParams.get("type");
 
     if (!userId) {
       return NextResponse.json({ message: "User ID is required" }, { status: 400 });
     }
 
-    const routes = await prisma.route.findMany({
-      where: {
-        user_id: parseInt(userId),
-      },
-      include: {
-        origin: true,
-        location: {
-          include: {
-            location: true,
-          },
+    let routes
+
+    if (type === 'all') {
+      routes = await prisma.route.findMany({
+        where: {
+          user_id: parseInt(userId),
         },
-        ratings: true,
-      },
-    });
+        include: {
+          origin: true,
+          location: {
+            include: {
+              location: true,
+            },
+          },
+          ratings: true,
+        },
+      });
+    } else if (type === 'public') {
+      routes = await prisma.route.findMany({
+        where: {
+          user_id: parseInt(userId),
+          is_public: true,
+        },
+        include: {
+          origin: true,
+          location: {
+            include: {
+              location: true,
+            },
+          },
+          ratings: true,
+        },
+      });
+    } else {
+      return NextResponse.json({ message: "Invalid type parameter" }, { status: 400 });
+    }
 
     return NextResponse.json(routes);
   } catch (error) {
