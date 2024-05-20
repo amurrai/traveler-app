@@ -95,7 +95,7 @@ model LocationRoute {
   location_id Int
   route_id    Int
   location    Location @relation(fields: [location_id], references: [id])
-  route       Route    @relation(fields: [route_id], references: [id])
+  route       Route    @relation(fields: [route_id], references: [id], onDelete: Cascade)
 }
 
 model LocationRating {
