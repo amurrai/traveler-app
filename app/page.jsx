@@ -18,10 +18,13 @@ export default async function Home() {
   console.log(publicRoutes);
   return (
     <Box display='flex' flexDirection='column' alignItems='center' marginTop={8}>
-      <Box display='flex' width='100%' height='200px' alignItems='center' backgroundColor='#DDDDDD'>
-        <Typography variant="h5" paddingLeft={5}>
-          Travel Companion is an app that will transform your city ventures into self guided exploration adventures!
+      <Box display='flex' flexDirection='column' width='100%' height='200px' justifyContent='center' backgroundColor='#DDDDDD'>
+        <Typography variant="h3" paddingLeft={5}>
+          WanderQuest
         </Typography>
+        <Typography variant="h5" paddingLeft={5}>
+          Enhance Your City Exploration with Custom Self-Guided Adventures!  
+        </Typography>        
       </Box>
       <Box>
         <Grid container columnSpacing={1} rowSpacing={5}>
@@ -31,3 +34,5 @@ export default async function Home() {
     </Box>  
   );
 }
+
+
