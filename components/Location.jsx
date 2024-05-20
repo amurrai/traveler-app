@@ -12,10 +12,6 @@ const Location = ({ location }) => {
     ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
     : "No ratings";
 
-  const averageRating = location.locationRatings?.length
-    ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
-    : "No ratings";
-
   const { data: session } = useSession();
   const user_id = session?.user?.id;
 
