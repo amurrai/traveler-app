@@ -13,7 +13,7 @@ const DashboardPage = () => {
 
   const fetchRoutes = async () => {        
     try {
-      const routesResponse = await fetch(`/api/route?userId=${userId}`);
+      const routesResponse = await fetch(`/api/route?userId=${userId}&type=all`);
       if (!routesResponse.ok) {
         throw new Error("Failed to fetch routes");
       }
