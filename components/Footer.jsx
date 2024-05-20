@@ -5,7 +5,7 @@ const Footer = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ paddingRight: 2 }}>
-          Footer
+          WanderQuest
         </Typography>
         <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }} component="div">
           <Button color="inherit">About</Button>

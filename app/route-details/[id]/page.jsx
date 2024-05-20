@@ -49,15 +49,14 @@ const RouteDetailsPage = async ({params}) => {
 
 
   return (
-    <>
-      <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
-        <Box display='flex' flexGrow='1' flexDirection='column' margin={2}>
+    <Paper sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', mt: 10, mb: 2, mx: 'auto', p: 4, width: '95vw'}}>
+        <Box display='flex' flexGrow='1' flexDirection='column' >
           <Box display='flex' direction='row' width='100%' justifyContent={"space-between"}>
-            <Typography variant='h5'>
+            <Typography variant='h4'>
                 {routeDetails.route_name}
             </Typography>
             <Button variant='contained'>
-              Add To Favourites
+              Add To Favorites
             </Button>    
           </Box>
           <Box display='flex' paddingTop={1}>
@@ -85,8 +84,7 @@ const RouteDetailsPage = async ({params}) => {
           </Typography>}
           {ratings}
         </Box>
-      </Box>
-    </>
+    </Paper>
   )
 }
 

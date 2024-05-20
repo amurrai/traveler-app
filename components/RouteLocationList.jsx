@@ -66,7 +66,7 @@ const center = { lat: locations[0].latitude, lng: locations[0].longitude };
   return (
     <Box width="100%">
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', justifyContent: 'flex-start',  rowGap: '15px' }}>
+        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', justifyContent: 'space-between',  rowGap: '15px' }}>
           {locations.map(location => {
             return (
               <Card key={location.id} sx={{ width: 200, height: 200 }}>
