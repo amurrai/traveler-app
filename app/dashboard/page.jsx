@@ -2,12 +2,9 @@
 
 import { Box, Stack, Button, Typography } from "@mui/material";
 import RouteListItem from "@/components/RouteListItem";
-import { fetchUserRoutes } from "@/lib/data"
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
-  // const session = await getServerSession(authOptions);
-  // const userId = session?.user?.id;
 
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,7 +13,7 @@ const DashboardPage = () => {
 
   const fetchRoutes = async () => {        
     try {
-      const routesResponse = await fetch(`/api/route/user?userId=${userId}`);
+      const routesResponse = await fetch(`/api/route?userId=${userId}`);
       if (!routesResponse.ok) {
         throw new Error("Failed to fetch routes");
       }
@@ -55,7 +52,7 @@ const DashboardPage = () => {
 
   const handleDeleteRoute = async (routeId) => {
     try {
-      const response = await fetch(`/api/route/user?routeId=${routeId}`, {
+      const response = await fetch(`/api/route?routeId=${routeId}`, {
         method: "DELETE",
       });
 
