@@ -4,16 +4,19 @@ import { PrismaClient } from '@prisma/client'
 import torontoPlaces from './torontoPlaces.js';
 import calgaryPlaces from './calgaryPlaces.js';
 import vancouverPlaces from './vancouverPlaces.js';
+import {
+  users,
+  locationRatings,
+  routeRatings,
+  routes
+} from './seedsData.js';
 
 const prisma = new PrismaClient()
 
 async function main() {
 
   await prisma.user.createMany({
-    data: [
-      { email: "bobdylan@gmail.com", username: "hacker", password: "password", first_name: "Bob", last_name: "Dylan" },
-      { email: "margaret@gmail.com", username: "margo", password: "password", first_name: "Margaret", last_name: "Thatcher" }
-    ]
+    data: users
   });
 
   await prisma.city.createMany({
@@ -63,21 +66,75 @@ async function main() {
   });
 
   await prisma.locationRating.createMany({
-    data: [
-      {
-        user_id: 1,
-        location_id: 1,
-        rating: 5,
-        comment: "I liked it"
-      },
+    data: locationRatings
+  });
 
-      {
-        user_id: 2,
-        location_id: 2,
-        rating: 4,
-        comment: "It wasn't very scary"
-      }
-    ]
+  await prisma.route.createMany({
+    data: routes
+  });
+
+  const locationRoutesData = [];
+
+  // For route_id between 1 and 10
+  for (let routeId = 1; routeId <= 10; routeId++) {
+    for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
+      locationRoutesData.push({
+        location_id: Math.floor(Math.random() * 23) + 1,
+        route_id: routeId
+      });
+    }
+    locationRoutesData.push({
+      location_id: 2 * routeId - 1,
+      route_id: routeId
+    });
+    locationRoutesData.push({
+      location_id: 2 * routeId,
+      route_id: routeId
+    });
+  }
+
+  // For route_id between 11 and 20
+  for (let routeId = 11; routeId <= 20; routeId++) {
+    for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
+      locationRoutesData.push({
+        location_id: Math.floor(Math.random() * 21) + 24,
+        route_id: routeId
+      });
+    }
+    locationRoutesData.push({
+      location_id: 2 * routeId + 2,
+      route_id: routeId
+    });
+    locationRoutesData.push({
+      location_id: 2 * routeId + 3,
+      route_id: routeId
+    });
+  }
+
+  // For route_id between 21 and 30
+  for (let routeId = 21; routeId <= 30; routeId++) {
+    for (let i = 0; i < Math.floor(Math.random() * 4); i++) {
+      locationRoutesData.push({
+        location_id: Math.floor(Math.random() * 25) + 45,
+        route_id: routeId
+      });
+    }
+    locationRoutesData.push({
+      location_id: 2 * routeId + 3,
+      route_id: routeId
+    });
+    locationRoutesData.push({
+      location_id: 2 * routeId + 4,
+      route_id: routeId
+    });
+  }
+
+  await prisma.locationRoute.createMany({
+    data: locationRoutesData
+  });
+
+  await prisma.routeRating.createMany({
+    data: routeRatings
   });
 }
 

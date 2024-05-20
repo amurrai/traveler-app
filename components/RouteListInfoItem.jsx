@@ -1,10 +1,33 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
+import Link from "next/link";
 
 const RouteListInfoItem = ({ route }) => {
   return (
     <Grid display='flex' item xs={12} sm={6} md={4} justifyContent={'center'}>
-      <Box display='flex' flexDirection='row' height='200px' width='400px'>
-        {route && <Box 
+      {route && <Paper sx={{ height: '95%', width: '95%', position: 'relative', overflow: 'hidden', padding: 1 }}>
+        <Box display='flex' flexDirection='row' height='100%' width='100%' component={Link} href={`/route-details/${route.id}`}>
+          <Box 
+            sx={{ left: 0, top: 0, width: '35%', height: '100%', objectFit: 'cover' }}
+            component="img"
+            backgroundColor='#666666'
+            src={route.location[0].location.image}
+          />
+          <Box height='180px' width='100%' margin={1}>
+            <Box height='20%'>
+              <Typography variant='h6' textOverflow= 'ellipsis'>
+                {route.route_name}
+              </Typography>
+            </Box>
+            <Box height='80%'>
+              <Typography variant='body1' sx={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 6, WebkitBoxOrient: 'vertical' }}>
+                {route.description}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Paper>}
+      {/* {route && <Box display='flex' flexDirection='row' height='200px' width='400px' component={Link} href={`/route-details/${route.id}`}>
+        <Box 
           component="img"
           display='flex' 
           justifyContent={'center'} 
@@ -15,20 +38,20 @@ const RouteListInfoItem = ({ route }) => {
           backgroundColor='#666666'
           overflow='hidden' 
           src={route.location[0].location.image}
-          />}
+        />
         <Box height='180px' width='180px' margin={1}>
           <Box height='20%'>
-            {route && <Typography variant='h6'>
+            <Typography variant='h6'>
               {route.route_name}
-            </Typography>}         
+            </Typography>
           </Box>
           <Box height='80%'>
-            {route && <Typography variant='body'>
+            <Typography variant='body'>
               {route.description}
-            </Typography>}          
+            </Typography>
           </Box>
         </Box>
-      </Box>
+      </Box>} */}
     </Grid>
   )
 };

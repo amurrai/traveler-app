@@ -11,7 +11,7 @@ const PopularRoutesPage = async () => {
   // pass in route for each RoutelistInfoItem component
   const routeListInfoItem = routes.map((route) => {
     return (
-      <RouteListInfoItem route={route}/>
+        <RouteListInfoItem route={route}/>
     );
   });
 
@@ -29,8 +29,8 @@ const PopularRoutesPage = async () => {
         </Button>    
       </Box>
       <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} margin={2}>
-        <Box display='flex' direction='row' width='100%' justifyContent={"center"}>
-          <Typography variant='h5' gutterBottom>
+        <Box display='flex' width='100%' justifyContent={"center"}>
+          <Typography variant='h5'>
             OUR MOST POPULAR ROUTES
           </Typography>
         </Box>

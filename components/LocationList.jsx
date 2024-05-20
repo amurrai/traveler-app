@@ -20,9 +20,10 @@ import {
   DirectionsRenderer,
 } from "@react-google-maps/api";
 import CreateRouteForm from "./CreateRouteForm";
+import LocationListItem from "./LocationListItem"
 
 
-const LocationList = ({locations}) => {
+const LocationList = ({locations, hideCreateRouteForm }) => {
   const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
   const { isLoaded } = useJsApiLoader({
@@ -94,28 +95,11 @@ const LocationList = ({locations}) => {
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
           {locations.map(location => {
             return (
-              <Card key={location.id} sx={{ width: 200, height: 200 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image={location.image}
-                  title={location.name}
-                />
-                <CardContent sx={{ p: 1}}>
-                  <FormControlLabel control={
-                    <Checkbox
-                      value={location.id}
-                      onChange={(e) => {handleCheckBoxChange(e)}}
-                      inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                  } label={location.name}>
-                  </FormControlLabel>
-                  
-                </CardContent>
-              </Card>
+              <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange}/>
             )
           })}
         </Box>
-        <Box sx={{ display: 'flex', gap: '10px', mt: 4, mb: 4 }}>
+        <Box sx={{ display: 'flex', gap: '10px', mt: 4, }}>
             <FormControl sx={{width: '300px'}}>
               <InputLabel> Select starting location
               </InputLabel>
@@ -140,7 +124,6 @@ const LocationList = ({locations}) => {
               </Select>
             </FormControl>
             <Button variant="contained" label='Submit' type='submit'>Submit</Button>
-
         </Box>
       </form>
       {directionsResponse && (
@@ -160,7 +143,7 @@ const LocationList = ({locations}) => {
             <DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel')} />
           </GoogleMap>
             <Card id="panel" sx={{ p: 2, mt: 2 }}/>
-          <CreateRouteForm locationData={locationData}/>          
+          {!hideCreateRouteForm && <CreateRouteForm locationData={locationData}/>}
         </Box>
       )}
     </Box>
