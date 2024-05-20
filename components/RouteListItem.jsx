@@ -1,14 +1,16 @@
 import { Box, IconButton, Paper, Typography } from "@mui/material";
 import { HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
+import Link from "next/link";
 
 const RouteListItem = ({ route, onDelete }) => {
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (event) => {
+    event.preventDefault();
     onDelete(route.id);
   };
-
+  
   return (
-    <Paper elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, minHeight: '185px', backgroundColor: '#F0F5F9' }}>
+    <Paper component={Link} href={`/route-details/${route.id}`} elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, minHeight: '185px', backgroundColor: '#F0F5F9' }}>
       {route && <Box
         component='img'
         display='flex'
@@ -29,7 +31,7 @@ const RouteListItem = ({ route, onDelete }) => {
               <Typography variant="body">Created on: {new Date(route.created_on).toLocaleDateString()}</Typography>
             </Box>
             <Box display={'flex'} direction='row' justifyContent={'right'}>
-              <IconButton size="small" edge="start" color="inherit" aria-label="active" href="/">
+              <IconButton size="small" edge="start" color="inherit" aria-label="active">
                 <PushPinOutlined />
               </IconButton>
               <IconButton size="small" edge="start" color="inherit" aria-label="delete" onClick={handleDeleteClick}>
@@ -47,3 +49,4 @@ const RouteListItem = ({ route, onDelete }) => {
 };
 
 export default RouteListItem;
+
