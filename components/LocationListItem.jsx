@@ -15,7 +15,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import LocationDetail from "./LocationDetail";
 
-const LocationListItem = ( {location} ) => {
+const LocationListItem = ( {location, handleCheckBoxChange} ) => {
   // Modal state
   const [open, setOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState({});

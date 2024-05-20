@@ -95,7 +95,7 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
           {locations.map(location => {
             return (
-              <LocationListItem location={location}/>
+              <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange}/>
             )
           })}
         </Box>
