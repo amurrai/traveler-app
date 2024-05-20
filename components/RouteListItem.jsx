@@ -1,9 +1,14 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Paper, Typography } from "@mui/material";
 import { EditOutlined, HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
 
-const RouteListItem = ({ route }) => {
+const RouteListItem = ({ route, onDelete }) => {
+
+  const handleDeleteClick = () => {
+    onDelete(route.id);
+  };
+
   return (
-    <Box display='flex' width='100%' direction='row' marginTop={2}>
+    <Paper elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, minHeight: '185px', backgroundColor: '#F0F5F9' }}>
       {route && <Box
         component='img'
         display='flex'
@@ -13,6 +18,7 @@ const RouteListItem = ({ route }) => {
         justifyContent='center'
         alignItems='center'
         overflow='hidden'
+        sx= {{ minWidth: '250px', minHeight: '150px' }}
         src={route.origin.image}
       />}
       <Box width='100%'>
@@ -23,25 +29,24 @@ const RouteListItem = ({ route }) => {
               <Typography variant="body">Created on: {new Date(route.created_on).toLocaleDateString()}</Typography>
             </Box>
             <Box display={'flex'} direction='row' justifyContent={'right'}>
-              <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
+              <IconButton size="small" edge="start" color="inherit" aria-label="active" href="/">
                 <PushPinOutlined />
               </IconButton>
-              <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
+              {/* <IconButton size="small" edge="start" color="inherit" aria-label="edit" href="/">
                 <EditOutlined />
-              </IconButton>
-              <IconButton size="small" edge="start" color="inherit" aria-label="delete" href="/">
+              </IconButton> */}
+              <IconButton size="small" edge="start" color="inherit" aria-label="delete" onClick={handleDeleteClick}>
                 <HighlightOffOutlined />
               </IconButton>
             </Box>
           </Box>
         </Box>
         <Box display='flex' width='100%' maxHeight='100%' paddingTop={1}>
-          {route && <Typography variant="body" paddingLeft={1}>{route.description}</Typography>}
+          {route && <Typography variant="body" paddingLeft={1} sx={{ overflowY: 'auto', flexGrow: 1 }}>{route.description}</Typography>}
         </Box>
       </Box>
-    </Box>
+    </Paper>
   )
 };
 
 export default RouteListItem;
-
