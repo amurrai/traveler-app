@@ -35,4 +35,5 @@ const FilteredLocations = (props) => {
   );
 };
 
+
 export default FilteredLocations;

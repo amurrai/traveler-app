@@ -1,7 +1,9 @@
 'use client'
 import React, { useState } from 'react';
 import { Box, Typography, Select, MenuItem, TextField, Button } from '@mui/material';
+
 import axios from 'axios';
+
 import { useRouter } from 'next/navigation';
 
 const Filter = ({ selectedCategory, minRating }) => {
