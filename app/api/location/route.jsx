@@ -1,45 +1,74 @@
+
+// import prisma from "@/lib/prisma";
+// import { NextResponse } from "next/server";
+
+// export default async function GET() {
+//   try {
+//     // Fetch all locations
+//     const allLocations = await prisma.location.findMany();
+//     return NextResponse.json({ locations: allLocations });
+//   } catch (error) {
+//     console.error("Error fetching locations:", error);
+//     return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+//   }
+// }
+
+
+// app/api/favorite-locations/route.js
+
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const locations = await prisma.location.findMany();
-    return NextResponse.json({ locations });
+    const { searchParams } = new URL(req.url);
+    const user_id = searchParams.get("user_id");
+
+    if (!user_id) {
+      return NextResponse.json({ message: "User ID is required" }, { status: 400 });
+    }
+
+    const favoriteLocations = await prisma.userLocation.findMany({
+      where: {
+        user_id: parseInt(user_id),
+      },
+      include: {
+        location: true,
+      },
+    });
+
+    return NextResponse.json(favoriteLocations.map(fav => fav.location));
   } catch (error) {
-    console.error("Error fetching locations:", error);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    console.error("Error fetching favorite locations:", error);
+    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }
 
 
-// export default async function handler(req, res) {
-//   const { userId, locationId } = req.body;
 
-//   if (!userId || !locationId) {
-//     return res.status(400).json({ message: "User ID and Location ID are required" });
-//   }
-
+// export async function POST(req) {
 //   try {
-//     await prisma.userLocation.delete({
-//       where: {
-//         user_id_location_id: {
-//           user_id: parseInt(userId),
-//           location_id: parseInt(locationId)
-//         }
-//       }
+//     const body = await req.json();
+//     const { name, place_id, city_id, country_id, description, category, image, rating_id, days_of_operation } = body;
+
+//     // Create a new location entry
+//     const newLocation = await prisma.location.create({
+//       data: {
+//         name,
+//         place_id,
+//         city_id,
+//         country_id,
+//         description,
+//         category,
+//         image,
+//         rating_id,
+//         days_of_operation
+//       },
 //     });
 
-//     res.status(200).json({ message: "Favorite removed" });
+//     return NextResponse.json({ location: newLocation });
 //   } catch (error) {
-//     console.error("Error removing favorite:", error);
-//     res.status(500).json({ message: "Internal Server Error" });
+//     console.error("Error:", error);
+//     return NextResponse.json({ message: "Something went wrong" });
 //   }
 // }
-
-
-
-
-
-
-
-

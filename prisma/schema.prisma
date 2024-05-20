@@ -48,6 +48,8 @@ model UserLocation {
   location_id Int
   user        User     @relation(fields: [user_id], references: [id])
   location    Location @relation(fields: [location_id], references: [id])
+
+   @@unique([user_id, location_id])
 }
 
 model Location {
