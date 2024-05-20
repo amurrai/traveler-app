@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { fetchFilteredLocations } from '@/lib/data';
 
-//BE 
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -16,7 +15,4 @@ export async function GET(request) {
     return NextResponse.error(new Error("Failed to fetch filtered locations"));
   }
 }
-
-
-
 

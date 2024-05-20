@@ -15,12 +15,17 @@ const LocationsPage = async(props) =>  {
   const category = props.searchParams.category || '';
   const minRating = props.searchParams.minRating || '';
    const locations = await fetchFilteredLocations(category, minRating );
+  // const userId = props.session.user.id; 
+  // const locations = await fetchFilteredLocations(category, minRating, userId);
+
 
  
  
   return (
     <ul>
-      <Grid container spacing={3} sx={{ paddingTop: 10 }}>
+
+      <Grid container spacing={3} sx={{ paddingTop: 15 }}>
+
       <Grid item xs={12} md={3}>
       <Filter minRating={minRating} selectedCategory={category}/>
       </Grid>
@@ -36,17 +41,11 @@ const LocationsPage = async(props) =>  {
       })}
     </ul>
 
+      </Grid>
 
-        </Grid>
-        
     </ul>
     
   );
 };
 
 export default LocationsPage;
-
-
-
-
-
