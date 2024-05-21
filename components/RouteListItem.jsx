@@ -41,7 +41,7 @@ const RouteListItem = ({ route, onDelete }) => {
           </Box>
         </Box>
         <Box display='flex' width='100%' height='110px%' paddingTop={1}>
-          {route && <Typography variant="body" sx={{ paddingLeft: 1, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>{route.description}</Typography>}
+          {route && <Typography variant="body1" sx={{ paddingLeft: 1, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>{route.description}</Typography>}
         </Box>
       </Box>
     </Paper>
