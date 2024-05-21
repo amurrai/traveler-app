@@ -10,7 +10,7 @@ const RouteListItem = ({ route, onDelete }) => {
   };
   
   return (
-    <Paper component={Link} href={`/route-details/${route.id}`} elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, minHeight: '185px', backgroundColor: '#F0F5F9' }}>
+    <Paper component={Link} href={`/route-details/${route.id}`} elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, height: '185px', overflow: 'hidden', backgroundColor: '#F0F5F9' }}>
       {route && <Box
         component='img'
         display='flex'
@@ -40,8 +40,8 @@ const RouteListItem = ({ route, onDelete }) => {
             </Box>
           </Box>
         </Box>
-        <Box display='flex' width='100%' maxHeight='100%' paddingTop={1}>
-          {route && <Typography variant="body" paddingLeft={1} sx={{ overflowY: 'auto', flexGrow: 1 }}>{route.description}</Typography>}
+        <Box display='flex' width='100%' height='110px%' paddingTop={1}>
+          {route && <Typography variant="body" sx={{ paddingLeft: 1, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>{route.description}</Typography>}
         </Box>
       </Box>
     </Paper>
@@ -49,4 +49,3 @@ const RouteListItem = ({ route, onDelete }) => {
 };
 
 export default RouteListItem;
-
