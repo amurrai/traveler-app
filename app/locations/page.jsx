@@ -1,50 +1,47 @@
-
-import Location from "@/components/Location";
-import { fetchFilteredLocations, fetchLocation } from "@/lib/data";
-import Link from "next/link";
+import { fetchFilteredLocations } from "@/lib/data";
 import React from "react";
+import { getSession } from "next-auth/react";
 import Filter from "@/components/Filter";
-import { Grid } from "@mui/material";
+import LocationPageClient from '@/components/LocationPageClient';
+import { Grid, Box } from "@mui/material";
 
 
-
-const LocationsPage = async(props) =>  {
+const LocationsPage = async (props) => {
 
   console.log(props);
 
+  const session = await getSession();
+
   const category = props.searchParams.category || '';
   const minRating = props.searchParams.minRating || '';
-   const locations = await fetchFilteredLocations(category, minRating );
-  // const userId = props.session.user.id; 
-  // const locations = await fetchFilteredLocations(category, minRating, userId);
+  const locations = await fetchFilteredLocations(category, minRating);
 
 
- 
- 
+  // Fetch user's favorite locations if logged in
+  const favoriteLocations = session?.user?.id
+    ? await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/favorite-locations?user_id=${session.user.id}`).then((res) =>
+      res.ok ? res.json() : []
+    )
+    : [];
+
+
   return (
-    <ul>
 
-      <Grid container spacing={3} sx={{ paddingTop: 15 }}>
+    <Box sx={{ paddingTop: 10 }}>
+      <Grid container spacing={3}>
 
-      <Grid item xs={12} md={3}>
-      <Filter minRating={minRating} selectedCategory={category}/>
-      </Grid>
-      <ul>
-      {locations.map(location => {
-        return (
-          <li key={location.id} >
-            <Link href={`/locations`}>
-              <Location location={location}  />
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+        <Grid item xs={12} md={3}>
+          <Filter minRating={minRating} selectedCategory={category} />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <LocationPageClient
+            locations={locations}
+            initialFavoriteLocations={favoriteLocations}
+          />
+        </Grid>
 
       </Grid>
-
-    </ul>
-    
+    </Box>
   );
 };
 
