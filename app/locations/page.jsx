@@ -25,7 +25,7 @@ const LocationsPage = async(props) =>  {
       <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} margin={2}>
         <Box display='flex' width='100%' justifyContent={"center"}>
           <Typography variant='h5'>
-            OUR MOST POPULAR ROUTES
+            OUR MOST POPULAR LOCATIONS
           </Typography>
         </Box>
         <Grid container columnSpacing={1} rowSpacing={5}>
