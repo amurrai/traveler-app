@@ -5,7 +5,7 @@ import FavoriteLocations from '@/components/FavoriteLocations';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 
 const FavoritesPage = () => {
   const { data: session } = useSession();
@@ -36,12 +36,23 @@ const FavoritesPage = () => {
   };
 
   return (
-    <Box sx={{ padding: 8 }}>
-    <Typography variant="h4" gutterBottom>
-      My Favorite Locations
-    </Typography>
-    <FavoriteLocations locations={favoriteLocations} onFavoriteToggle={handleFavoriteToggle}/>
-  </Box>
+    <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
+      <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column'>
+        <Stack position='fixed' direction="column" spacing={2} component="div" padding={2}>
+          <Button variant='outlined' href="/dashboard">My Routes</Button>
+          <Button variant='contained'>My Locations</Button>
+          <Button variant='outlined' href="/published">Published Routes</Button>
+        </Stack>
+      </Box>
+      <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} margin={2}>
+        <Box display='flex' direction='row' width='100%' justifyContent={"space-between"}>
+        <Typography variant='h5'>
+             MY FAVOIRTE LOCATIONS
+          </Typography>         
+        </Box>
+        <FavoriteLocations locations={favoriteLocations} onFavoriteToggle={handleFavoriteToggle}/>
+      </Box>
+    </Box>
   );
 };
 
