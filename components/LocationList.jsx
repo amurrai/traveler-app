@@ -4,16 +4,13 @@ import {
   Box,
   Button,
   Card,
-  CardContent,
-  CardMedia,
-  Checkbox,
+  Divider,
   FormControl,
-  FormControlLabel,
   InputLabel,
   MenuItem,
   Select,
+  Typography
 } from "@mui/material";
-
 import {
   useJsApiLoader,
   GoogleMap,
@@ -22,16 +19,15 @@ import {
 import CreateRouteForm from "./CreateRouteForm";
 import LocationListItem from "./LocationListItem"
 
+const LocationList = ({locations, favorites }) => {
 
-const LocationList = ({locations, hideCreateRouteForm }) => {
+  // Google Maps and Routes states
   const center = { lat: locations[0].latitude, lng: locations[0].longitude };
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
-
-  // Google Maps and Routes states
   const [map, setMap] = useState(null);
   const [directionsResponse, setDirectionsResponse] = useState(null);
 
@@ -77,8 +73,6 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
       optimizeWaypoints: true
     });
 
-    console.log(results);
-
     setLocationData({
       origin_id: formJson.origin,
       destination_id: formJson.destination,
@@ -92,10 +86,30 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
   return (
     <Box>
       <form onSubmit={handleSubmit}>
+        {!!favorites.length && (
+          <Box sx={{ my: 2 }}>
+            <Typography sx={{ my: 1 }}>Favorites:</Typography>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
+              {locations.filter(location => {
+                return favorites.includes(location.id) 
+              })
+              .map(location => {
+                return (
+                  <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange} />
+                )
+              })}
+            </Box>
+            <Divider sx={{ my: 2 }} variant="middle"/>
+            <Typography sx={{ mb: 1 }}>Other places:</Typography>
+          </Box>
+        )}
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
-          {locations.map(location => {
+          {locations.filter(location => {
+            return !favorites.includes(location.id) 
+          })
+          .map(location => {
             return (
-              <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange}/>
+              <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange} />
             )
           })}
         </Box>
@@ -143,7 +157,7 @@ const LocationList = ({locations, hideCreateRouteForm }) => {
             <DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel')} />
           </GoogleMap>
             <Card id="panel" sx={{ p: 2, mt: 2 }}/>
-          {!hideCreateRouteForm && <CreateRouteForm locationData={locationData}/>}
+          <CreateRouteForm locationData={locationData} />
         </Box>
       )}
     </Box>

@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 
 
 const Location = ({ location, isFavorite }) => {
+
   const averageRating = location.locationRatings?.length
     ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
     : "No ratings";

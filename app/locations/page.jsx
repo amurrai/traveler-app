@@ -3,7 +3,8 @@ import React from "react";
 import { getSession } from "next-auth/react";
 import Filter from "@/components/Filter";
 import LocationPageClient from '@/components/LocationPageClient';
-import { Grid, Box } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+
 
 
 const LocationsPage = async (props) => {

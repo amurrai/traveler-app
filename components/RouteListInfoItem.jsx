@@ -26,32 +26,6 @@ const RouteListInfoItem = ({ route }) => {
           </Box>
         </Box>
       </Paper>}
-      {/* {route && <Box display='flex' flexDirection='row' height='200px' width='400px' component={Link} href={`/route-details/${route.id}`}>
-        <Box 
-          component="img"
-          display='flex' 
-          justifyContent={'center'} 
-          alignItems={'center'} 
-          height='180px' 
-          width='180px' 
-          margin={1} 
-          backgroundColor='#666666'
-          overflow='hidden' 
-          src={route.location[0].location.image}
-        />
-        <Box height='180px' width='180px' margin={1}>
-          <Box height='20%'>
-            <Typography variant='h6'>
-              {route.route_name}
-            </Typography>
-          </Box>
-          <Box height='80%'>
-            <Typography variant='body'>
-              {route.description}
-            </Typography>
-          </Box>
-        </Box>
-      </Box>} */}
     </Grid>
   )
 };
