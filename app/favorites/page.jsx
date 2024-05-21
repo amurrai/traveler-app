@@ -1,35 +1,41 @@
-"use client"; 
+'use client'
 
 import { useRouter } from 'next/navigation';
 import FavoriteLocations from '@/components/FavoriteLocations';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { Box, Button, Stack, Typography } from '@mui/material';
 
 const FavoritesPage = () => {
   const { data: session } = useSession();
   const router = useRouter();
- 
+
   const [favoriteLocations, setFavoriteLocations] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  const fetchFavorites = async () => {
+    try {
+      if (session?.user?.id) {
+        const favoriteResponse = await fetch(`/api/favorite-locations?user_id=${session.user.id}`);
+        if (!favoriteResponse.ok) {
+          throw new Error('Failed to fetch favorite locations');
+        }
+        const favoriteData = await favoriteResponse.json();
+        setFavoriteLocations(favoriteData);
+      }
+    } catch (error) {
+      console.error('Error fetching favorite locations:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        if (session?.user?.id) {
-          const response = await axios.get(`/api/favorite-locations?user_id=${session.user.id}`);
-          setFavoriteLocations(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching favorite locations:', error);
-      }
-    };
-
     fetchFavorites();
   }, [session]);
 
   const handleFavoriteToggle = (locationId) => {
-    // Filter out the location with the given ID from favoriteLocations
     setFavoriteLocations((prevLocations) =>
       prevLocations.filter((location) => location.id !== locationId)
     );

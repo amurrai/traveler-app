@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import { Grid, IconButton, Typography, Card, CardMedia,  CardContent} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Grid, IconButton, Typography, Card, CardMedia, CardContent } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
 
 const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
@@ -12,7 +11,7 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
 
 
   useEffect(() => {
-   
+
     const initialFavoriteStatus = {};
 
     locations.forEach((location) => {
@@ -22,22 +21,30 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
   }, [locations]);
 
 
-  const handleFavoriteClick = async (location_id, event) => {
+  const handleFavoriteClick = async (locationId, event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/favorites', {
-        user_id: session.user.id,
-        location_id: location_id,
+      const response = await fetch('/api/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: session.user.id,
+          location_id: locationId,
+        }),
       });
 
-      if (response.status === 200) {
-       
+      if (response.ok) {
+        //ubdate fav orite
         setFavoriteStatus((prevStatus) => ({
           ...prevStatus,
-          [location_id]: !prevStatus[location_id],
+          [locationId]: !prevStatus[locationId],
         }));
-      
-        onFavoriteToggle(location_id);
+        // remove item from the favorite page
+        onFavoriteToggle(locationId);
+      } else {
+        console.error('Failed to toggle favorite status');
       }
     } catch (error) {
       console.error('Error toggling favorite status:', error);
@@ -49,13 +56,15 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
     <Grid container spacing={3}>
       {locations.map((location) => (
         <Grid item xs={12} sm={6} md={4} key={location.id}>
-          <Card sx={{ maxWidth: 345, margin: 'auto', marginTop: 3 }}>
+
+          <Card sx={{ maxWidth: 330, height: 530, margin: 'auto', marginTop: 3, display: 'flex', flexDirection: 'column' }}>
             {location.image && (
               <CardMedia
                 component="img"
-                height="140"
+                height="140" s
                 image={location.image}
                 alt={location.name}
+                sx={{ width: '100%', height: 250, objectFit: 'cover' }}
               />
             )}
             <CardContent>
@@ -67,23 +76,23 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
                 </IconButton>
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                       Description: {location.description}
-                     </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                       Category: {location.category}
-                     </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                       Days of Operation: {location.days_of_operation}
-                     </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                       City: {location.city?.name}
-                     </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                       Country: {location.country?.name}
-                     </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                       Rating: {location.averageRating}
-                     </Typography>
+                Description: {location.description}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Category: {location.category}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Days of Operation: {location.days_of_operation}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                City: {location.city?.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Country: {location.country?.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Rating: {location.averageRating}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

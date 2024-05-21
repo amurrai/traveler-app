@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardMedia, Typography, IconButton } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
 
-const Location = ({ location }) => {
+const Location = ({ location, isFavorite }) => {
+
   const averageRating = location.locationRatings?.length
     ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
     : "No ratings";
@@ -15,26 +15,35 @@ const Location = ({ location }) => {
   const { data: session } = useSession();
   const user_id = session?.user?.id;
 
-  const [isFavorite, setIsFavorite] = useState(location.isFavorite);
+  const [isFav, setIsFav] = useState(isFavorite);
 
   useEffect(() => {
-    setIsFavorite(location.isFavorite);
-  }, [location.isFavorite]);
+    setIsFav(isFavorite);
+  }, [isFavorite]);
+
 
   const handleFavoriteClick = async (event) => {
     event.preventDefault();
     if (!user_id) return;
 
     try {
-      const response = await axios.post('/api/favorites', {
-        user_id: user_id,
-        location_id: location.id,
+      const response = await fetch('/api/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id,
+          location_id: location.id,
+        }),
       });
 
-      if (response.data.message === 'Location favorited') {
-        setIsFavorite(true);
-      } else if (response.data.message === 'Location unfavorited') {
-        setIsFavorite(false);
+      const data = await response.json();
+
+      if (data.message === 'Location favorited') {
+        setIsFav(true);
+      } else if (data.message === 'Location unfavorited') {
+        setIsFav(false);
       }
     } catch (error) {
       console.error('Error toggling favorite status:', error);
@@ -43,23 +52,24 @@ const Location = ({ location }) => {
 
 
   return (
-    <Card sx={{ maxWidth: 345, margin: 'auto', marginTop: 3 }}>
+    <Card sx={{ width: 250, height: 495, margin: 'auto', marginTop: 3, display: 'flex', flexDirection: 'column' }}>
       {location.image && (
         <CardMedia
           component="img"
-          height="140"
-          image={location.image}
+          height="100"
+          image={location.image}  
           alt={location.name}
+          sx={{ width: '100%', height: 200, objectFit: 'cover'  }}
 
-        />  
+        />
 
       )}
-      <CardContent>
+      <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography gutterBottom variant="h5" component="div">
           {location.name}
 
           <IconButton onClick={handleFavoriteClick} sx={{ float: 'right' }}>
-            {isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+            {isFav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
           </IconButton>
 
         </Typography>
@@ -87,4 +97,3 @@ const Location = ({ location }) => {
 };
 
 export default Location;
-

@@ -103,6 +103,9 @@ CREATE TABLE "RouteRating" (
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "UserLocation_user_id_location_id_key" ON "UserLocation"("user_id", "location_id");
+
 -- AddForeignKey
 ALTER TABLE "Route" ADD CONSTRAINT "Route_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
@@ -128,7 +131,7 @@ ALTER TABLE "Location" ADD CONSTRAINT "Location_country_id_fkey" FOREIGN KEY ("c
 ALTER TABLE "LocationRoute" ADD CONSTRAINT "LocationRoute_location_id_fkey" FOREIGN KEY ("location_id") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "LocationRoute" ADD CONSTRAINT "LocationRoute_route_id_fkey" FOREIGN KEY ("route_id") REFERENCES "Route"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "LocationRoute" ADD CONSTRAINT "LocationRoute_route_id_fkey" FOREIGN KEY ("route_id") REFERENCES "Route"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "LocationRating" ADD CONSTRAINT "LocationRating_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

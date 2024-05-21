@@ -1,39 +1,47 @@
-
-import Location from "@/components/Location";
-import { fetchFilteredLocations, fetchLocation } from "@/lib/data";
-import Link from "next/link";
+import { fetchFilteredLocations } from "@/lib/data";
 import React from "react";
+import { getSession } from "next-auth/react";
 import Filter from "@/components/Filter";
+import LocationPageClient from '@/components/LocationPageClient';
 import { Box, Grid, Typography } from "@mui/material";
 
 
 
-const LocationsPage = async(props) =>  {
+const LocationsPage = async (props) => {
+
+  console.log(props);
+
+  const session = await getSession();
 
   const category = props.searchParams.category || '';
   const minRating = props.searchParams.minRating || '';
-  const locations = await fetchFilteredLocations(category, minRating );
- 
+  const locations = await fetchFilteredLocations(category, minRating);
+
+
+  // Fetch user's favorite locations if logged in
+  const favoriteLocations = session?.user?.id
+    ? await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/favorite-locations?user_id=${session.user.id}`).then((res) =>
+      res.ok ? res.json() : []
+    )
+    : [];
+
+
   return (
-    <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
-      <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column' padding='16px'>
-        <Typography variant="h5" gutterBottom>
-          Filter Options
-        </Typography>
-        <Filter minRating={minRating} selectedCategory={category}/>
-      </Box>
-      <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} margin={2}>
-        <Box display='flex' width='100%' justifyContent={"center"}>
-          <Typography variant='h5'>
-            OUR MOST POPULAR LOCATIONS
-          </Typography>
-        </Box>
-        <Grid container columnSpacing={1} rowSpacing={5}>
-          {locations.map(location => (              
-            <Location key={location.id} location={location} />            
-          ))}
-        </Grid> 
-      </Box>
+
+    <Box sx={{ paddingTop: 10 }}>
+      <Grid container spacing={3}>
+
+        <Grid item xs={12} md={3}>
+          <Filter minRating={minRating} selectedCategory={category} />
+        </Grid>
+        <Grid item xs={12} md={9}>
+          <LocationPageClient
+            locations={locations}
+            initialFavoriteLocations={favoriteLocations}
+          />
+        </Grid>
+
+      </Grid>
     </Box>
   );
 };
