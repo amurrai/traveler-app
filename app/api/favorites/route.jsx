@@ -1,23 +1,22 @@
-
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     const body = await req.json();
+    console.log('Parsed request body:', body);
     const { user_id, location_id } = body;
+
+    console.log('Received request:', { user_id, location_id });
 
     if (!user_id || !location_id) {
       return NextResponse.json({ message: "Missing required fields" }, { status: 400 });
     }
 
-    const parsedUserId = parseInt(user_id);
-    const parsedLocationId = parseInt(location_id);
-
     const isFavorite = await prisma.userLocation.findFirst({
       where: {
-        user_id: parsedUserId,
-        location_id: parsedLocationId,
+        user_id: parseInt(user_id),
+        location_id: parseInt(location_id),
       },
     });
 
@@ -29,8 +28,8 @@ export async function POST(req) {
     } else {
       await prisma.userLocation.create({
         data: {
-          user_id: parsedUserId,
-          location_id: parsedLocationId,
+          user_id: parseInt(user_id),
+          location_id: parseInt(location_id),
         },
       });
       return NextResponse.json({ message: 'Location favorited' });
@@ -40,4 +39,3 @@ export async function POST(req) {
     return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
   }
 }
-
