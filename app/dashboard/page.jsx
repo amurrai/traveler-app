@@ -99,7 +99,7 @@ const DashboardPage = () => {
       <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column'>
         <Stack position='fixed' direction="column" spacing={2} component="div" padding={2}>
           <Button variant='contained'>Your Routes</Button>
-          <Button variant='outlined'>Your Locations</Button>
+          <Button variant='outlined' href="/favorites">Your Locations</Button>
           <Button variant='outlined' href="/published">Published Routes</Button>
         </Stack>
       </Box>
