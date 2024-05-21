@@ -3,13 +3,36 @@ import {
   Box,
   Card,
   Paper,
+  Rating,
   Typography,
  } from "@mui/material";
 
 
 const LocationDetail = ( {location} ) => {
   const mapUrl = "https://www.google.com/maps/embed/v1/place?key=" + process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY + "&q=place_id:" + location.place_id;
+  // Location ratings
+  const averageRating = location.locationRatings?.length
+  ? location.locationRatings.reduce((sum, rating) => sum + rating.rating, 0) / location.locationRatings.length
+  : "No ratings";
 
+  const ratings = location.locationRatings.map((rating) => {
+    return (
+      <Paper sx={{ autoHeight: true, width: 'auto', p: 2, m: 2 }}>
+        <Rating
+          key={rating.id}
+          name="read-only"
+          value={rating.rating}
+          size="large"
+          readOnly
+        />
+        <Box>
+          <Typography variant="caption" fontWeight="bold">Reviewed by: {rating.user.username}</Typography>
+        </Box>
+
+        <Typography variant="body">{rating.comment}</Typography>
+      </Paper>
+    )
+  });
   return (
     <Card sx={{ 
       display: 'flex',
@@ -29,7 +52,7 @@ const LocationDetail = ( {location} ) => {
             Country: {location.country.name} <br/>
             City: {location.city.name} <br/> <br/> 
             Category: {location.category} <br/>
-            Rating: {location.rating} <br/> <br/>
+            Rating: {averageRating} <br/> <br/>
             {location.description}</Typography>
         </Paper>
         <Card component='img' src={location.image} alt={location.name}
@@ -41,80 +64,27 @@ const LocationDetail = ( {location} ) => {
           }}>
         </Card>
       </Box>
-        <Card sx={{
-                height: '500',
-                width: '100%',
-              }}>
-          <iframe
-            height='500px'
-            width= '100%'
-            frameborder='0'
-            referrerpolicy='no-referrer-when-downgrade'
-            src={mapUrl}>
-          </iframe>
-        </Card>
+      <Card sx={{
+              height: '500',
+              width: '100%',
+            }}>
+        <iframe
+          height='500px'
+          width= '100%'
+          frameborder='0'
+          referrerpolicy='no-referrer-when-downgrade'
+          src={mapUrl}>
+        </iframe>
+      </Card>
+      <Box sx={{ 
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        }}>
+        {location.locationRatings && ratings}
+      </Box>
     </Card>
   )
 };
 
 export default LocationDetail;
-
-    // <>
-    //   <Box display='flex' justifyContent='center' width='100%'>
-    //     <Box sx={{
-    //       backgroundColor: '#222222',
-    //       color: 'white',
-    //       height: '500px',
-    //       width: '100%',
-    //       margin: 2.5,
-    //       marginTop: 10,
-    //       display: 'flex',
-    //       justifyContent: 'center',
-    //       alignItems: 'center'
-    //     }}>
-    //       <iframe
-    //         height='500px'
-    //         width= '100%'
-    //         frameborder='0'
-    //         referrerpolicy='no-referrer-when-downgrade'
-    //         src={mapUrl}
-    //         allowfullscreen>
-    //       </iframe>
-    //     </Box>
-    //   </Box>  
-    //   <Box display='flex' justifyContent='center' width='100%'>
-    //     <Box component="img" src={location.image} alt={location.name} 
-    //       sx={{
-    //         backgroundColor: '#444444',
-    //         color: 'white',
-    //         height: '300px',
-    //         width: '100%',
-    //         margin: 2.5,
-    //         marginTop: '0',
-    //         display: 'flex',
-    //         justifyContent: 'center',
-    //         alignItems: 'center',
-    //         objectFit: 'cover'
-    //       }}>
-    //     </Box>
-    //   </Box>
-    //   <Box display='flex' flexDirection='row' width='100%' height='150px' marginBottom={2.5}>
-    //     <Box display='flex' flexDirection='column' width='30%' justifyContent='space-between' backgroundColor='#666666' marginLeft={2.5}>
-    //       <Box backgroundColor='#665566'>
-    //         Name: {location.name}
-    //       </Box>
-    //       <Box backgroundColor='#664466'>
-    //         Rating
-    //       </Box>
-    //       <Box backgroundColor='#663366'>
-    //         Category: {location.category}
-    //       </Box>
-    //       <Box backgroundColor='#662266'>
-    //         Add to favorite
-    //       </Box>          
-    //     </Box>
-    //     <Box display ='flex' width='70%' justifyContent='center' alignItems='center' backgroundColor='#888888' marginRight={2.5}>
-    //       Description: {location.description}
-    //     </Box>
-    //   </Box>
-    // </>
