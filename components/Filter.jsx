@@ -39,11 +39,11 @@ const Filter = ({ selectedCategory, minRating }) => {
       >
         <MenuItem value="All">All Categories</MenuItem>
         <MenuItem value="Park">Parks</MenuItem>
-        <MenuItem value="Attraction">Tourist Attractions</MenuItem>
+        <MenuItem value="Tourist Attraction">Tourist Attractions</MenuItem>
         <MenuItem value="Zoo">Zoos</MenuItem>
         <MenuItem value="Historical Landmark">Historical Landmarks</MenuItem>
         <MenuItem value="Museum">Museums</MenuItem>
-        <MenuItem value="Gallery">Galleries</MenuItem>
+        <MenuItem value="Art Gallery">Galleries</MenuItem>
         <MenuItem value="Shopping Mall">Shopping Malls</MenuItem>
       </TextField>
       <TextField
