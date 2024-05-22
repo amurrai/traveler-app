@@ -15,7 +15,8 @@ const LocationsPage = async (props) => {
 
   const category = props.searchParams.category || '';
   const minRating = props.searchParams.minRating || '';
-  const locations = await fetchFilteredLocations(category, minRating);
+  const city = props.searchParams.city || '';
+  const locations = await fetchFilteredLocations(category, minRating, city);
 
 
   // Fetch user's favorite locations if logged in
@@ -27,12 +28,11 @@ const LocationsPage = async (props) => {
 
 
   return (
-
-    <Box sx={{ paddingTop: 10 }}>
+    <Box sx={{ mt: 10, mx: 2 }}>
       <Grid container spacing={3}>
 
         <Grid item xs={12} md={3}>
-          <Filter minRating={minRating} selectedCategory={category} />
+          <Filter minRating={minRating} selectedCategory={category} selectedCity={city}/>
         </Grid>
         <Grid item xs={12} md={9}>
           <LocationPageClient
