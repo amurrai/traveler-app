@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Stack, Button } from "@mui/material";
-import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon"
+import ExploreIcon from '@mui/icons-material/Explore';
+import MapIcon from '@mui/icons-material/Map';
 import Link from "next/link";
 import React from "react";
 import { getServerSession } from "next-auth";
@@ -13,7 +14,7 @@ const Navbar = async () => {
     <AppBar position="fixed">
       <Toolbar>
         <IconButton size="large" edge="start" color="inherit" aria-label="logo" href="/">
-          <CatchingPokemonIcon />
+          <ExploreIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ paddingRight: 2 }}>
           <Link href="/">WanderQuest</Link>
@@ -26,6 +27,12 @@ const Navbar = async () => {
         <Stack direction="row" spacing={2}>
           {session?.user ? (
             <>
+              <Button 
+                variant="outlined" 
+                color="inherit" 
+                href="/routes/create"
+                startIcon={<MapIcon/>}
+              >Create Route</Button>
               <Button color="inherit" href="/account">Account</Button>
               <LogoutButton />
             </>
