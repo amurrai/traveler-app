@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
 import FavoriteLocations from '@/components/FavoriteLocations';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -8,9 +7,9 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 
 const FavoritesPage = () => {
   const { data: session } = useSession();
-  const router = useRouter();
 
   const [favoriteLocations, setFavoriteLocations] = useState([]);
+  const [favoriteStatuses, setFavoriteStatuses] = useState({});
   const [loading, setLoading] = useState(true);
 
 
@@ -41,6 +40,15 @@ const FavoritesPage = () => {
     );
   };
 
+  useEffect(() => {
+    const initialStatuses = {};
+    favoriteLocations.forEach((location) => {
+      initialStatuses[location.id] = true;
+    });
+    setFavoriteStatuses(initialStatuses);
+  }, [favoriteLocations]);
+
+  
   return (
     <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
       <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column'>
@@ -56,7 +64,7 @@ const FavoritesPage = () => {
              MY FAVOIRTE LOCATIONS
           </Typography>         
         </Box>
-        <FavoriteLocations locations={favoriteLocations} onFavoriteToggle={handleFavoriteToggle}/>
+        <FavoriteLocations locations={favoriteLocations} onFavoriteToggle={handleFavoriteToggle} favoriteStatuses={favoriteStatuses}/>
       </Box>
     </Box>
   );
