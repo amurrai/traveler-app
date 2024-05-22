@@ -3,22 +3,22 @@
 import { Box, Stack, Button, Typography } from "@mui/material";
 import RouteListItem from "@/components/RouteListItem";
 import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 const PublishedPage = () => {
+
+  const { data: session } = useSession();
+  console.log(session)
 
   const [routes, setRoutes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [userId, setUserId] = useState(null);
 
-  const fetchRoutes = async () => {        
+  const fetchRoutes = async () => {
     try {
-      const routesResponse = await fetch(`/api/route?userId=${userId}&type=public`);
-      if (!routesResponse.ok) {
-        throw new Error("Failed to fetch routes");
-      }
-      const routesData = await routesResponse.json();
-      setRoutes(routesData);
+      const routesResponse = await axios.get(`/api/route?userId=${session.user.id}&type=public`);
+      setRoutes(routesResponse.data);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -27,28 +27,10 @@ const PublishedPage = () => {
   };
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const sessionResponse = await fetch("/api/session");
-        if (!sessionResponse.ok) {
-          throw new Error("Failed to fetch session");
-        }
-        const session = await sessionResponse.json();
-        setUserId(session.user.id);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchSession();
-  }, []);
-
-  useEffect(() => {    
-    if (userId) {            
+    if (session) {            
       fetchRoutes();      
     }
-  }, [userId]); // has to be userId here so this use effect will trigger after the userId has been loaded with the fetch session useEffect
+  }, [session]); // has to be userId here so this use effect will trigger after the userId has been loaded with the fetch session useEffect
 
   const handleDeleteRoute = async (routeId) => {
     try {
@@ -68,6 +50,16 @@ const PublishedPage = () => {
   };
 
   if (loading) {
+    if(session === null) {
+      console.log("not logged in")
+      return (
+        <Box display='flex' width='100%' marginTop={50} justifyContent={'center'}>
+        <Typography variant='h5'>
+          Please Log In
+        </Typography>
+      </Box>   
+      );
+    }
     return (
       <Box display='flex' width='100%' marginTop={50} justifyContent={'center'}>
         {/* <Typography variant='h5'>Loading...</Typography> */}
@@ -80,16 +72,6 @@ const PublishedPage = () => {
       <Box display='flex' width='100%' marginTop={50} justifyContent={'center'}>
         <Typography variant='h5'>Error: {error}</Typography>
       </Box>
-    );
-  }
-
-  if(!userId) {
-    return (
-      <Box display='flex' width='100%' marginTop={50} justifyContent={'center'}>
-      <Typography variant='h5'>
-        Please log in
-      </Typography>
-    </Box>   
     );
   }
 
@@ -110,7 +92,7 @@ const PublishedPage = () => {
           </Typography>        
         </Box>
         {routes.map(route => (
-          <RouteListItem key={route.id} route={route} onDelete={handleDeleteRoute} />
+          <RouteListItem key={route.id} route={route} onDelete={handleDeleteRoute} publish={true} />
         ))}
       </Box>
     </Box>
