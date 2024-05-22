@@ -4,7 +4,8 @@ import {
   Box,
   Card,
   CardContent,
-  CardMedia
+  CardMedia,
+  Grid
 } from "@mui/material";
 
 import {
@@ -66,12 +67,12 @@ const center = { lat: locations[0].latitude, lng: locations[0].longitude };
   return (
     <Box width="100%">
       <form onSubmit={handleSubmit}>
-        <Box sx={{ display: 'flex', mb: 2, flexWrap: 'wrap', justifyContent: 'space-between',  rowGap: '15px' }}>
+        <Grid container columnGap={3} sx={{ mt: 2}}>
           {locations.map(location => {
             return (
-              <Card key={location.id} sx={{ width: 200, height: 200 }}>
+              <Card key={location.id} sx={{ width: 200, height: 240 }}>
                 <CardMedia
-                  sx={{ height: 140 }}
+                  sx={{ minHeight: 200 }}
                   image={location.image}
                   title={location.name}
                 />
@@ -81,10 +82,10 @@ const center = { lat: locations[0].latitude, lng: locations[0].longitude };
               </Card>
             )
           })}
-        </Box>
+        </Grid>
       </form>
       {directionsResponse && (
-        <Box>
+        <Box sx={{ mt: 3 }}>
           <GoogleMap
             center={center}
             zoom={5}

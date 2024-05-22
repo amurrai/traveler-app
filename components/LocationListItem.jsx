@@ -33,10 +33,10 @@ const LocationListItem = ( {location, handleCheckBoxChange} ) => {
         display: 'flex', 
         flexDirection: 'column', 
         width: 250, 
-        height: 230,
+        height: 320,
         }}>
       <CardMedia
-        sx={{ minHeight: 140 }}
+        sx={{ minHeight: 250 }}
         image={location.image}
         title={location.name}
       />

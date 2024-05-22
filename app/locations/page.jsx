@@ -3,7 +3,7 @@ import React from "react";
 import { getSession } from "next-auth/react";
 import Filter from "@/components/Filter";
 import LocationPageClient from '@/components/LocationPageClient';
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 
 
@@ -28,13 +28,15 @@ const LocationsPage = async (props) => {
 
 
   return (
-    <Box sx={{ mt: 10, mx: 2 }}>
+    <Paper sx={{ mt: 10, mb: 2, mx: 'auto', p: 4, width: '95vw'}}>
+      <Typography variant='h4' >
+        POPULAR LOCATIONS
+      </Typography>
       <Grid container spacing={3}>
-
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
           <Filter minRating={minRating} selectedCategory={category} selectedCity={city}/>
         </Grid>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={10}>
           <LocationPageClient
             locations={locations}
             initialFavoriteLocations={favoriteLocations}
@@ -42,7 +44,7 @@ const LocationsPage = async (props) => {
         </Grid>
 
       </Grid>
-    </Box>
+    </Paper>
   );
 };
 

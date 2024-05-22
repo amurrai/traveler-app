@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { MenuItem, TextField, Button, Paper } from '@mui/material';
+import { Box, MenuItem, TextField, Button, Paper, Typography } from '@mui/material';
 
 import { useRouter } from 'next/navigation';
 
@@ -34,7 +34,10 @@ const Filter = ({ selectedCategory, minRating, selectedCity }) => {
 
 
   return (
-    <Paper sx={{ mt:3, p: 2}}>
+    <Box sx={{ mt: 3}}>
+      <Typography variant="h6">
+        Filter Options
+      </Typography>
       <TextField
         label="Select City"
         select
@@ -75,7 +78,7 @@ const Filter = ({ selectedCategory, minRating, selectedCity }) => {
         margin='normal'
       />      
       <Button onClick={applyFilter} variant="contained" sx={{ mt: 2 }}>Apply Filters</Button>
-    </Paper>
+    </Box>
   );
 };
 

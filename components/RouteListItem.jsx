@@ -23,25 +23,24 @@ console.log(publish)
         flexDirection: 'row',
         marginTop: 2,
         padding: 2,
-        height: '185px',
+        height: '280px',
         overflow: 'hidden',
-        backgroundColor: '#F0F5F9'
       }}>
       {route && <Box
         component='img'
         display='flex'
         direction='column'
         width='250px'
-        height='150px'
+        height='250px'
         justifyContent='center'
         alignItems='center'
         overflow='hidden'
-        sx= {{ minWidth: '250px', minHeight: '150px' }}
+        sx= {{ minWidth: '250px', minHeight: '250px', objectFit: 'cover' }}
         src={route.origin.image}
       />}
       <Box width='100%'>
         <Box display={'flex'} direction='row' justifyContent={'space-between'}>
-          {route && <Typography display='flex' variant="h5" paddingLeft={1} alignItems={'center'}>{route.route_name}</Typography>}
+          {route && <Typography display='flex' variant="h5" paddingLeft={2} alignItems={'center'}>{route.route_name}</Typography>}
           <Box>
             <Box display={'flex'} direction='row' justifyContent={'right'}>
               <Typography variant="body">Created on: {new Date(route.created_on).toLocaleDateString()}</Typography>
@@ -58,12 +57,12 @@ console.log(publish)
         </Box>
         <Box display='flex' width='100%' height='110px' paddingTop={1}>
           {route && <Typography variant="body1"
-            sx={{ paddingLeft: 1,
+            sx={{ paddingLeft: 2,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               display: '-webkit-box',
               WebkitLineClamp: 4,
-              WebkitBoxOrient: 'vertical'
+              WebkitBoxOrient: 'vertical',
             }}>
             {route.description}
           </Typography>}
