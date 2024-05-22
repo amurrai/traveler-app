@@ -1,6 +1,6 @@
 "use client"
 
-import { Box, Stack, Button, Typography } from "@mui/material";
+import { Box, Card, Stack, Button, Paper, Typography } from "@mui/material";
 import RouteListItem from "@/components/RouteListItem";
 import { useEffect, useState } from "react";
 import axios from 'axios';
@@ -94,16 +94,17 @@ const DashboardPage = () => {
   const otherRoutes = routes.filter(route => !route.is_active);
 
   return (
-    <>
-    <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between' marginTop={10}>
+    <Paper sx={{ mt: 10, mb: 2, mx: 'auto', p: 4, minHeight: '100vh', width: '95vw'}}>
+      <Typography sx={{ mt: -1, mb: 2 }} variant='h4'>DASHBOARD</Typography>
+    <Box display='flex' flexDirection='row' width='100%' justifyContent='space-between'>
       <Box display='flex' minWidth='200px' maxWidth='200px' flexDirection='column'>
-        <Stack position='fixed' direction="column" spacing={2} component="div" padding={2}>
+        <Stack position='fixed' direction="column" spacing={2} component="div" padding={1}>
           <Button variant='contained'>Your Routes</Button>
           <Button variant='outlined' href="/favorites">Your Locations</Button>
           <Button variant='outlined' href="/published">Published Routes</Button>
         </Stack>
       </Box>
-      <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} margin={2}>
+      <Box display='flex' flexGrow='1' flexDirection='column' alignItems={'center'} marginLeft={2} paddingTop={1}>
         <Box display='flex' direction='row' width='100%' justifyContent={"space-between"}>
         <Typography variant='h5'>
             YOUR SAVED ROUTES
@@ -120,7 +121,7 @@ const DashboardPage = () => {
         ))}
       </Box>
     </Box>
-  </>
+  </Paper>
   );
 };
 

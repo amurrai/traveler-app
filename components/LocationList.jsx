@@ -6,6 +6,7 @@ import {
   Card,
   Divider,
   FormControl,
+  Grid,
   InputLabel,
   MenuItem,
   Select,
@@ -89,7 +90,7 @@ const LocationList = ({locations, favorites }) => {
         {!!favorites.length && (
           <Box sx={{ my: 2 }}>
             <Typography sx={{ my: 1 }}>Favorites:</Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
+            <Grid container columnGap={3} sx={{ mt: 2}}>
               {locations.filter(location => {
                 return favorites.includes(location.id) 
               })
@@ -98,12 +99,12 @@ const LocationList = ({locations, favorites }) => {
                   <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange} />
                 )
               })}
-            </Box>
-            <Divider sx={{ my: 2 }} variant="middle"/>
+            </Grid>
+            <Divider sx={{ mt: 2, mb: 1 }} variant="middle"/>
             <Typography sx={{ mb: 1 }}>Other places:</Typography>
           </Box>
         )}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: '15px'}}>
+        <Grid container gap={3} sx={{ mt: 2}}>
           {locations.filter(location => {
             return !favorites.includes(location.id) 
           })
@@ -112,7 +113,7 @@ const LocationList = ({locations, favorites }) => {
               <LocationListItem location={location} handleCheckBoxChange={handleCheckBoxChange} />
             )
           })}
-        </Box>
+        </Grid>
         <Box sx={{ display: 'flex', gap: '10px', mt: 4, }}>
             <FormControl sx={{width: '300px'}}>
               <InputLabel> Select starting location

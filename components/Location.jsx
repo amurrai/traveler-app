@@ -52,35 +52,26 @@ const Location = ({ location, isFavorite }) => {
 
 
   return (
-    <Card sx={{ width: 250, height: 495, margin: 'auto', marginTop: 3, display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ width: 275, height: 550, display: 'flex', flexDirection: 'column' }}>
       {location.image && (
         <CardMedia
           component="img"
-          height="100"
           image={location.image}  
           alt={location.name}
-          sx={{ width: '100%', height: 200, objectFit: 'cover'  }}
+          sx={{ width: 1, maxHeight: 275, minHeight: 275, objectFit: 'cover'  }}
 
         />
 
       )}
-      <CardContent sx={{ flex: '1 0 auto' }}>
-        <Typography gutterBottom variant="h5" component="div">
-          {location.name}
-
-          <IconButton onClick={handleFavoriteClick} sx={{ float: 'right' }}>
+      <CardContent sx={{}}>
+          <IconButton onClick={handleFavoriteClick} sx={{ float: 'inline-end' }}>
             {isFav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
           </IconButton>
-
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Description: {location.description}
+        <Typography gutterBottom variant="h6" component="div">
+          {location.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Category: {location.category}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Days of Operation: {location.days_of_operation}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           City: {location.city?.name}
@@ -90,6 +81,10 @@ const Location = ({ location, isFavorite }) => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Rating: {averageRating}
+        </Typography>
+        <br />
+        <Typography variant="body2" color="text.secondary">
+          {location.description}
         </Typography>
       </CardContent>
     </Card>

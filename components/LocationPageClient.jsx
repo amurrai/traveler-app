@@ -22,7 +22,7 @@ const LocationPageClient = ({ locations, initialFavoriteLocations }) => {
 
   return (
     <Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={2} sx={{mt: 2 }}>
         {locations.map((location) => (
           <Grid item key={location.id}>
             <Location

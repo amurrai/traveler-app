@@ -31,7 +31,7 @@ const CreateRoute = async ({params}) => {
 
   return (
     <Paper sx={{ mt: 10, mb: 2, mx: 'auto', p: 4, width: '95vw'}}>
-      <Typography sx={{ mt: -1, mb: 2 }} variant='h3'>Create route for {city.name}</Typography>
+      <Typography sx={{ mt: -1, mb: 2 }} variant='h4'>CREATE ROUTE FOR {city.name.toUpperCase()}</Typography>
       <LocationSelectionMap locations={locations} ></LocationSelectionMap>
       <Typography variant='h5' pt={2} mb={2}>Select places to add:</Typography>
       <LocationList locations={locations} favorites={favorites} />
