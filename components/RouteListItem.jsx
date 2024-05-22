@@ -2,15 +2,31 @@ import { Box, IconButton, Paper, Typography } from "@mui/material";
 import { HighlightOffOutlined, PushPinOutlined } from "@mui/icons-material"
 import Link from "next/link";
 
-const RouteListItem = ({ route, onDelete }) => {
+const RouteListItem = ({ route, onDelete, onSetActive, publish }) => {
 
   const handleDeleteClick = (event) => {
     event.preventDefault();
     onDelete(route.id);
   };
+
+  const handleSetActiveClick = (event) => {
+    event.preventDefault();
+    onSetActive(route.id);
+  };
   
+console.log(publish)
+
   return (
-    <Paper component={Link} href={`/route-details/${route.id}`} elevation={4} sx={{ display: 'flex', width: '100%', flexDirection: 'row', marginTop: 2, padding: 2, height: '185px', overflow: 'hidden', backgroundColor: '#F0F5F9' }}>
+    <Paper component={Link} href={`/route-details/${route.id}`} elevation={4}
+      sx={{ display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
+        marginTop: 2,
+        padding: 2,
+        height: '185px',
+        overflow: 'hidden',
+        backgroundColor: '#F0F5F9'
+      }}>
       {route && <Box
         component='img'
         display='flex'
@@ -31,17 +47,26 @@ const RouteListItem = ({ route, onDelete }) => {
               <Typography variant="body">Created on: {new Date(route.created_on).toLocaleDateString()}</Typography>
             </Box>
             <Box display={'flex'} direction='row' justifyContent={'right'}>
-              <IconButton size="small" edge="start" color="inherit" aria-label="active">
+              {!route.is_active && !publish && (<IconButton size="small" edge="start" color="inherit" aria-label="active" onClick={handleSetActiveClick}>
                 <PushPinOutlined />
-              </IconButton>
+              </IconButton>)}
               <IconButton size="small" edge="start" color="inherit" aria-label="delete" onClick={handleDeleteClick}>
                 <HighlightOffOutlined />
               </IconButton>
             </Box>
           </Box>
         </Box>
-        <Box display='flex' width='100%' height='110px%' paddingTop={1}>
-          {route && <Typography variant="body1" sx={{ paddingLeft: 1, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 4, WebkitBoxOrient: 'vertical' }}>{route.description}</Typography>}
+        <Box display='flex' width='100%' height='110px' paddingTop={1}>
+          {route && <Typography variant="body1"
+            sx={{ paddingLeft: 1,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitLineClamp: 4,
+              WebkitBoxOrient: 'vertical'
+            }}>
+            {route.description}
+          </Typography>}
         </Box>
       </Box>
     </Paper>

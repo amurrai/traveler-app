@@ -115,3 +115,32 @@ export async function DELETE(req) {
     return NextResponse.json({ message: "Failed to delete route" }, { status: 500 });
   }
 }
+
+export async function PUT(req) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const user_id = searchParams.get("userId");
+    const route_id = searchParams.get("routeId");
+
+    if (!user_id || !route_id) {
+      return NextResponse.json({ message: "User ID and Route ID are required" }, { status: 400 });
+    }
+
+    // Set all routes for the user to inactive
+    await prisma.route.updateMany({
+      where: { user_id: parseInt(user_id), is_active: true },
+      data: { is_active: false },
+    });
+
+    // Set the specified route to active
+    await prisma.route.update({
+      where: { id: parseInt(route_id) },
+      data: { is_active: true },
+    });
+
+    return NextResponse.json({ message: "Active route updated successfully" });
+  } catch (error) {
+    console.error("Error updating active route:", error);
+    return NextResponse.json({ message: "Failed to update active route" }, { status: 500 });
+  }
+}
