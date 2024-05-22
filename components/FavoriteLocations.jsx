@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import { Grid, IconButton, Typography, Card, CardMedia, CardContent } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useSession } from 'next-auth/react';
 
 
-const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
+const FavoriteLocations = ({ locations, onFavoriteToggle, favoriteStatuses }) => {
   const { data: session } = useSession();
-  const [favoriteStatus, setFavoriteStatus] = useState({});
-
-
-  useEffect(() => {
-
-    const initialFavoriteStatus = {};
-
-    locations.forEach((location) => {
-      initialFavoriteStatus[location.id] = location.isFavorite;
-    });
-    setFavoriteStatus(initialFavoriteStatus);
-  }, [locations]);
-
 
   const handleFavoriteClick = async (locationId, event) => {
     event.preventDefault();
@@ -36,12 +23,7 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
       });
 
       if (response.ok) {
-        //ubdate fav orite
-        setFavoriteStatus((prevStatus) => ({
-          ...prevStatus,
-          [locationId]: !prevStatus[locationId],
-        }));
-        // remove item from the favorite page
+        //ubdate favorite status
         onFavoriteToggle(locationId);
       } else {
         console.error('Failed to toggle favorite status');
@@ -71,8 +53,7 @@ const FavoriteLocations = ({ locations, onFavoriteToggle }) => {
               <Typography gutterBottom variant="h5" component="div">
                 {location.name}
                 <IconButton onClick={(event) => handleFavoriteClick(location.id, event)} sx={{ float: 'right' }}>
-                  {/* {location.isFavorite ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />} */}
-                  {favoriteStatus[location.id] ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+                  {favoriteStatuses[location.id] ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
                 </IconButton>
               </Typography>
               <Typography variant="body2" color="text.secondary">
