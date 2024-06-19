@@ -17,6 +17,20 @@ Stack
 
 ## Final Product
 
+Home page - Lists popular public routes
+!["Create Route Page"](https://github.com/amurrai/traveler-app/blob/main/docs/homepage.png)
+
+Popular Locations - Users can filter and favorite locations before creating a route
+!["Create Route Page"](https://github.com/amurrai/traveler-app/blob/main/docs/popular-locations.png)
+
+Create Route - Users can see the locations available on the map and on the list
+!["Create Route Page"](https://github.com/amurrai/traveler-app/blob/main/docs/create-route.png)
+
+Generated route - After selecting the locations, starting and ending points, the generated map provides the optimal route with detailed walking directions
+!["Create Route Page"](https://github.com/amurrai/traveler-app/blob/main/docs/generated-route.png)
+
+Route Comment - Users can rate and comment public routes posted
+!["Create Route Page"](https://github.com/amurrai/traveler-app/blob/main/docs/route-comment.png)
 
 ## Setup
 
